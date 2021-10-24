@@ -7,6 +7,6 @@ th = threading.Thread(target=host.start_server);
 th.start();
 
 while input() != "q":
-    continue;
+    continue
 
 host.stop_server()

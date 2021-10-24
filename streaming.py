@@ -1,3 +1,8 @@
+"""
+Source: https://pypi.org/project/vidstream/
+Custom by RainbowDango
+"""
+
 import cv2
 import pyautogui
 import numpy as np
@@ -105,7 +110,26 @@ class StreamingServer:
             self.__block.release()
             thread = threading.Thread(target=self.__client_connection, args=(connection,))
             thread.start()
-            
+
+    def __client_connection(self, connection):
+        """
+        Main method for sending client streaming data.
+        """
+        while self.__used_slot and self.__running:
+            frame = self._get_frame()
+            result, frame = cv2.imencode('.jpg', frame, self.__encoding_parameters)
+            data = pickle.dumps(frame, 0)
+            size = len(data)
+
+            try:
+                connection.sendall(struct.pack('>L', size) + data)
+            except ConnectionResetError:
+                self.__used_slot = False
+            except ConnectionAbortedError:
+                self.__used_slot = False
+            except BrokenPipeError:
+                self.__used_slot = False
+    
     def _get_frame(self):
         """
         Gets the next screenshot.
@@ -120,25 +144,6 @@ class StreamingServer:
         frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
         frame = cv2.resize(frame, (self.__x_res, self.__y_res), interpolation=cv2.INTER_AREA)
         return frame
-
-    def __client_connection(self, connection):
-        """
-        Main method for sending client streaming data.
-        """
-        while self.__used_slot:
-            frame = self._get_frame()
-            result, frame = cv2.imencode('.jpg', frame, self.__encoding_parameters)
-            data = pickle.dumps(frame, 0)
-            size = len(data)
-
-            try:
-                connection.sendall(struct.pack('>L', size) + data)
-            except ConnectionResetError:
-                self.__used_slot = False
-            except ConnectionAbortedError:
-                self.__used_slot = False
-            except BrokenPipeError:
-                self.__used_slot = False
                 
     def start_server(self):
         """
