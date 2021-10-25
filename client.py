@@ -12,27 +12,35 @@ class SocketClient:
         self.sio = create_socket_client()
         self.init_event_handler()
         
-    def init_event_handler(self):
-        self.sio.on('connect', self.connect)
-        self.sio.on('disconnect', self.disconnect)
-        self.sio.on('server response', self.print_response)
+    def set_on_receive_key_listener(self, callback):
+        self.on_receive_key_listener = callback
         
-    async def connect(self):
+    def init_event_handler(self):
+        self.sio.on('connect', self.__connect_handler)
+        self.sio.on('disconnect', self.__disconnect_handler)
+        self.sio.on('receive_mac', self.__receive_mac_handler)
+        self.on_receive_key_listener = None
+        
+    async def __connect_handler(self):
         print('connection established')
 
-    async def disconnect(self):
+    async def __disconnect_handler(self):
         print('disconnected from server')
         
-    async def print_response(self, data):
-        print('Server response with data: ',data)
-    
+    async def __receive_mac_handler(self, data):
+        print(data)
+        if (self.on_receive_key_listener):
+            self.on_receive_key_listener(data)
+            
+    async def request_mac(self):
+        await self.sio.emit('request_mac')
+
     async def run_client(self):
         await self.sio.connect(host + ':' + str(port))
-        await self.sio.emit('client message', {'message': 'Hello I\'m client'})
+        await socket_client.request_mac()
         await self.sio.wait()
         
 host = 'http://127.0.0.1'
 port = 26100
 socket_client = SocketClient(host, port)
 asyncio.run(socket_client.run_client())
-
