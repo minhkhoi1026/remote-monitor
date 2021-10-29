@@ -1,8 +1,9 @@
 import asyncio
 import socketio
+import time
 
 def create_socket_client():
-    sio = socketio.AsyncClient()
+    sio = socketio.Client()
     return sio
 
 class SocketClient:
@@ -19,28 +20,34 @@ class SocketClient:
         self.sio.on('connect', self.__connect_handler)
         self.sio.on('disconnect', self.__disconnect_handler)
         self.sio.on('receive_mac', self.__receive_mac_handler)
+        self.sio.on('receive_key', self.__receive_key_handler)
         self.on_receive_key_listener = None
         
-    async def __connect_handler(self):
+    def __connect_handler(self):
         print('connection established')
 
-    async def __disconnect_handler(self):
+    def __disconnect_handler(self):
         print('disconnected from server')
         
-    async def __receive_mac_handler(self, data):
+    def __receive_mac_handler(self, data):
         print(data)
-        if (self.on_receive_key_listener):
-            self.on_receive_key_listener(data)
             
-    async def request_mac(self):
-        await self.sio.emit('request_mac')
+    def __receive_key_handler(self, key):
+        print(key)
+        if (self.on_receive_key_listener):
+            self.on_receive_key_listener(key)
+            
+    def request_mac(self):
+        self.sio.emit('request_mac')
+        
+    def toggle_keyhook(self):
+        self.sio.emit('request_keyhook')
 
-    async def run_client(self):
-        await self.sio.connect(host + ':' + str(port))
-        await socket_client.request_mac()
-        await self.sio.wait()
+    def run_client(self):
+        self.sio.connect(host + ':' + str(port))
+        self.toggle_keyhook()
         
 host = 'http://127.0.0.1'
 port = 26100
 socket_client = SocketClient(host, port)
-asyncio.run(socket_client.run_client())
+socket_client.run_client()
