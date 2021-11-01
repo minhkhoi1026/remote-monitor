@@ -51,7 +51,7 @@ def parse_powershell(lines):
 # return list of running process
 def get_running_processes():
     # get data as string from power shell
-    cmd = "powershell gps | select Name,Id,@{Name='ThreadCount';Expression={$_.Threads.Count}} | fl"
+    cmd = "powershell gps | select Name,@{Name='PID';Expression={$_.ID}},@{Name='Thread Count';Expression={$_.Threads.Count}} | fl"
     data = subprocess.check_output(cmd)
     
     # parse data to dict for return
@@ -63,7 +63,7 @@ def get_running_processes():
     user32.EnumWindows(cb_worker, 42)
     # add status of process for identify if process has GUI
     for proc in procs:
-        proc["is_app"] = int(proc["Id"] in app_pids)
+        proc["is_app"] = int(proc["PID"] in app_pids)
     return procs
 
 # kill process by pid
@@ -99,6 +99,6 @@ if __name__ == '__main__':
     start_time = time.time()
     apps = get_installed_apps()
     print("--- %s seconds ---" % (time.time() - start_time))
-    for app in apps:
-        print(app)
+    # for app in apps:
+    #     print(app)
     # start_app(apps[0]['AppID'])
