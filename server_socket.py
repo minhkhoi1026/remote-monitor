@@ -1,3 +1,4 @@
+from os import kill
 import socket
 import struct
 from getmac import get_mac_address 
@@ -5,6 +6,7 @@ from keylogger import KeyLogger
 from disable_input import lock_input, unlock_input
 from file_management import *
 from shutdown_logout import *
+from task_manager import *
 import threading
 
 BUF_SIZE = 256
@@ -102,6 +104,8 @@ class SocketServer:
                     self.__control_input_handler(request[1])
                 elif request[0] == "file_management":
                     data = self.__file_management_handler(request[1])
+                elif request[0] == "process_management":
+                    data = self.__process_management_handler(request[1])
                 # encode data and send through socket
                 data = pickle.dumps(data)
                 size = len(data)
@@ -112,6 +116,21 @@ class SocketServer:
                 self.__used_slot = False
             except BrokenPipeError:
                 self.__used_slot = False
+                
+    def __process_management_handler(self, data):
+        opcode = data["opcode"]
+        if opcode == process_opcode.LISTPROC:
+            return get_running_processes()
+        elif opcode == process_opcode.STARTPROC:
+            start_process(data["name"])
+        elif opcode == process_opcode.KILLPROC:
+            kill_process(data["pid"])
+        elif opcode == process_opcode.LISTAPP:
+            return get_installed_apps()
+        elif opcode == process_opcode.STARTAPP:
+            start_app(data["app_id"])
+        
+        return b""
                 
     def __file_management_handler(self, data):
         opcode = data["opcode"]
@@ -180,8 +199,9 @@ class SocketServer:
             self.__block.release()
         else:
             print("Server not running!")
-            
-server = SocketServer('127.0.0.1', 26100)
-server.start_server()
-time.sleep(50)
-server.stop_server()
+
+if __name__ == "__main__":
+    server = SocketServer('127.0.0.1', 26100)
+    server.start_server()
+    time.sleep(50)
+    server.stop_server()

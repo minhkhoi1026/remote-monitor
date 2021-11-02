@@ -3,6 +3,7 @@ import time
 import threading
 import struct
 import pickle
+from task_manager import process_opcode
 from utils import stoppabe_thread
 from file_management import *
 
@@ -129,11 +130,39 @@ class SocketClient:
                             {"opcode": file_opcode.DELFILE, "path": path})
     
     def request_list_process(self):
-        self.__request("process_management", )
-
-client = SocketClient()
-client.connect('127.0.0.1', 26100)
-# client.paste_file(get_file("README.md"), "E:\\README.md")
-# with open("test.md", "wb") as f:
-#     f.write(client.copy_file("E:\\repo\\remote-monitor\\README.md"))
-# client.del_file("E:\\repo\\remote-monitor\\test.md")
+        return self.__request("process_management", 
+                       {"opcode": process_opcode.LISTPROC})
+    
+    def start_process(self, name):
+        self.__request("process_management", 
+                       {"opcode": process_opcode.STARTPROC, "name": name})
+    
+    def kill_process(self, pid):
+        self.__request("process_management", 
+                       {"opcode": process_opcode.KILLPROC, "pid": pid})
+    
+    def request_list_app(self):
+        return self.__request("process_management", 
+                       {"opcode": process_opcode.LISTAPP})
+        
+    def start_app(self, app_id):
+        self.__request("process_management", 
+                       {"opcode": process_opcode.STARTAPP, "app_id": app_id})
+        
+if __name__ == "__main__":
+    client = SocketClient()
+    client.connect('127.0.0.1', 26100)
+    procs = client.request_list_process()
+    for proc in procs:
+        if proc["is_app"]:
+            print(proc)
+    client.start_process("dxdiag")
+    client.kill_process(11380)
+    apps = client.request_list_app()
+    for app in apps:
+        print(app)
+    client.start_app(apps[0]["AppID"])
+    client.paste_file(get_file("README.md"), "E:\\README.md")
+    with open("test.md", "wb") as f:
+        f.write(client.copy_file("E:\\repo\\remote-monitor\\README.md"))
+    client.del_file("E:\\repo\\remote-monitor\\test.md")
