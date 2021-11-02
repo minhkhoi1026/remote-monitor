@@ -152,17 +152,20 @@ class SocketClient:
 if __name__ == "__main__":
     client = SocketClient()
     client.connect('127.0.0.1', 26100)
-    procs = client.request_list_process()
-    for proc in procs:
-        if proc["is_app"]:
-            print(proc)
-    client.start_process("dxdiag")
-    client.kill_process(11380)
-    apps = client.request_list_app()
-    for app in apps:
-        print(app)
-    client.start_app(apps[0]["AppID"])
-    client.paste_file(get_file("README.md"), "E:\\README.md")
-    with open("test.md", "wb") as f:
-        f.write(client.copy_file("E:\\repo\\remote-monitor\\README.md"))
-    client.del_file("E:\\repo\\remote-monitor\\test.md")
+    # procs = client.request_list_process()
+    # for proc in procs:
+    #     if proc["is_app"]:
+    #         print(proc)
+    # client.start_process("dxdiag")
+    # client.kill_process(11380)
+    # apps = client.request_list_app()
+    # for app in apps:
+    #     print(app)
+    # client.start_app(apps[0]["AppID"])
+    # client.paste_file(get_file("README.md"), "E:\\README.md")
+    # with open("test.md", "wb") as f:
+    #     f.write(client.copy_file("E:\\repo\\remote-monitor\\README.md"))
+    # client.del_file("E:\\repo\\remote-monitor\\test.md")
+    files = client.request_listdir("E:\\")
+    for file in files["content"]:
+        print(file["Filename"], file["Filetype"], file["Filesize"], file["Last modified"],)

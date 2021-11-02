@@ -96,7 +96,7 @@ def get_list_dir(root_dir = None):
             file_info["Filetype"] = os.path.splitext(file)[1]
             if len(file_info["Filetype"]) > 0:
                 file_info["Filetype"] = file_info["Filetype"][1:]
-            file_info["Filesize"] = stat.st_size
+            file_info["Filesize"] = f'{stat.st_size}b'
         else:
             file_info["Filetype"] = "<DIR>"
             file_info["Filesize"] = ""

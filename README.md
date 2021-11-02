@@ -10,6 +10,6 @@ This app is our final assignment for Computer Network course. It is a computer m
 - Folder view: Done Socket file_management.py
 - Send file (from client to server): Done Socket file_management.py
 - Delete file: Done Socket file_management.py
-- List process: Done task_manager.py
-- Kill process: Done task_manager.py
-- Run app: Done task_manager.py
+- List process: Done Socket task_manager.py
+- Kill process: Done Socket task_manager.py
+- Run app: Done Socket task_manager.py
