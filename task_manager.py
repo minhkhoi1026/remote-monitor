@@ -3,6 +3,14 @@ import subprocess
 import ctypes
 from ctypes import wintypes
 import signal
+from enum import Enum
+
+class process_opcode(Enum):
+    LISTPROC = 1
+    STARTPROC = 2
+    KILLPROC = 3
+    LISTAPP = 4
+    STARTAPP = 5
 
 # argument type define for win api cross-platform func
 WNDENUMPROC = ctypes.WINFUNCTYPE(wintypes.BOOL,

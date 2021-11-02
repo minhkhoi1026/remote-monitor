@@ -6,6 +6,13 @@ import win32con
 import win32com.shell.shell as shell
 from PIL import Image
 import pickle
+from enum import Enum
+
+class file_opcode(Enum):
+    LISTDIR = 1
+    COPYFILE = 2
+    PASTEFILE = 3
+    DELFILE = 4
 
 def get_icon(PATH, size):
     SHGFI_ICON = 0x000000100
@@ -40,7 +47,7 @@ def get_icon(PATH, size):
     return img
 import time
 
-def get_list_file(root_dir):
+def get_list_dir(root_dir):
     files = []
     for file in os.listdir(root_dir):
         full_path = os.path.join(root_dir, file)
@@ -71,6 +78,11 @@ def get_file(path):
     with open(path, 'rb') as f:
         data = f.read()
     return data
+
+def save_file(file_content, path):
+    # TODO: handle duplicate file
+    with open(path, 'wb') as f:
+        data = f.write(file_content)
 
 def delete_file(path):
     if os.path.exists(path):
