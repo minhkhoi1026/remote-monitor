@@ -133,9 +133,6 @@ class SocketClient:
 
 client = SocketClient()
 client.connect('127.0.0.1', 26100)
-# res = client.request_listdir("E:\\repo\\remote-monitor")
-# for x in res["content"]:
-#     print(x["Filename"], x["Filetype"], x["Filesize"], x["Last modified"])
 # client.paste_file(get_file("README.md"), "E:\\README.md")
 # with open("test.md", "wb") as f:
 #     f.write(client.copy_file("E:\\repo\\remote-monitor\\README.md"))

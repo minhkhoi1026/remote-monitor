@@ -7,6 +7,19 @@ import win32com.shell.shell as shell
 from PIL import Image
 import pickle
 from enum import Enum
+import time
+import string
+from ctypes import windll
+
+def get_drives():
+    drives = []
+    bitmask = windll.kernel32.GetLogicalDrives()
+    for letter in string.ascii_uppercase:
+        if bitmask & 1:
+            drives.append(letter)
+        bitmask >>= 1
+
+    return drives
 
 class file_opcode(Enum):
     LISTDIR = 1
@@ -45,9 +58,30 @@ def get_icon(PATH, size):
         bmpstr, "raw", "BGRA", 0, 1
     )
     return img
-import time
 
-def get_list_dir(root_dir):
+def get_drives():
+    drives = []
+    bitmask = windll.kernel32.GetLogicalDrives()
+    for letter in string.ascii_uppercase:
+        if bitmask & 1:
+            file_info = {}
+            file_info["Filename"] = letter + ":\\"
+            stat = os.stat(file_info["Filename"])
+            file_info["Last modified"] = time.strftime("%d/%m/%Y %H:%M", time.localtime(stat.st_mtime))
+            file_info["Icon"] = pickle.dumps(get_icon(file_info["Filename"], "small"))
+            file_info["Filetype"] = "<DIR>"
+            file_info["Filesize"] = ""
+            drives.append(file_info)
+        bitmask >>= 1
+
+    return drives
+
+def get_list_dir(root_dir = None):
+    # if root directory is None return list of drives in computer
+    if root_dir is None:
+        return get_drives()
+    
+    # if root directory is specific poath return list of file and folder
     files = []
     for file in os.listdir(root_dir):
         full_path = os.path.join(root_dir, file)
@@ -71,7 +105,7 @@ def get_list_dir(root_dir):
     return files
 
 def get_parent_dir(path):
-    return os.path.dirname(path)
+    return os.path.dirname(path) if (path is not None) else None
 
 def get_file(path):
     data = None

@@ -116,7 +116,7 @@ class SocketServer:
     def __file_management_handler(self, data):
         opcode = data["opcode"]
         if opcode == file_opcode.LISTDIR:
-            root_path = data["root_path"]
+            root_path = data["path"]
             return {"pwd": get_parent_dir(root_path), "content": get_list_dir(root_path)}
         elif opcode == file_opcode.PASTEFILE:
             save_file(data["file_content"], data["path"])
