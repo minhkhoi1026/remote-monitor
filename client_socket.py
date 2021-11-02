@@ -61,7 +61,8 @@ class SocketClient:
         except ConnectionAbortedError:
             return self.__clean()
         except BrokenPipeError:
-            self.__clean()
+            return self.__clean()
+        except OSError:
             return self.__clean()
     
     def __keyhook_loop(self):
@@ -84,8 +85,12 @@ class SocketClient:
         self.__lock.release()
         
     def connect(self, host, port):
-        self.__client_socket.connect((host, port))
-        self.running = True
+        try:
+            self.__client_socket.connect((host, port))
+            self.running = True
+            return True
+        except ConnectionRefusedError:
+            return False
     
     def request_mac(self):
         return self.__request('request_mac')
