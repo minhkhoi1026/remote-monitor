@@ -63,7 +63,7 @@ class SocketClient:
         except BrokenPipeError:
             return self.__clean()
         except OSError:
-            return self.__clean()
+            return self.__clean
     
     def __keyhook_loop(self):
         while not threading.current_thread().is_stopped():
@@ -161,11 +161,11 @@ if __name__ == "__main__":
     for proc in procs:
         if proc["is_app"]:
             print(proc)
-    # client.start_process("dxdiag")
-    # client.kill_process(11380)
-    # apps = client.request_list_app()
-    # for app in apps:
-    #     print(app)
+    client.start_process("dxdiag")
+    client.kill_process(11380)
+    apps = client.request_list_app()
+    for app in apps:
+        print(app)
     # client.start_app(apps[0]["AppID"])
     # client.paste_file(get_file("README.md"), "E:\\README.md")
     # with open("test.md", "wb") as f:
