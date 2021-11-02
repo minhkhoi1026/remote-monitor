@@ -104,20 +104,20 @@ class SocketClient:
         self.__lock.release()
         
     def logout(self):
-        self.__request("logout")
+        return self.__request("logout")
         
     def shutdown(self):
-        self.__request("shutdown")
+        return self.__request("shutdown")
         
     def control_input(self, is_lock = True):
-        self.__request("control_input", {"is_lock": int(is_lock)})
+        return self.__request("control_input", {"is_lock": int(is_lock)})
         
     def request_listdir(self, root_path):
         return self.__request("file_management", 
                               {"opcode": file_opcode.LISTDIR, "path": root_path})
     
     def paste_file(self, file_content, path):
-        self.__request("file_management", 
+        return self.__request("file_management", 
                             {"opcode": file_opcode.PASTEFILE, 
                             "file_content": file_content, 
                             "path": path})
@@ -134,11 +134,11 @@ class SocketClient:
                        {"opcode": process_opcode.LISTPROC})
     
     def start_process(self, name):
-        self.__request("process_management", 
+        return self.__request("process_management", 
                        {"opcode": process_opcode.STARTPROC, "name": name})
     
     def kill_process(self, pid):
-        self.__request("process_management", 
+        return self.__request("process_management", 
                        {"opcode": process_opcode.KILLPROC, "pid": pid})
     
     def request_list_app(self):
@@ -146,16 +146,16 @@ class SocketClient:
                        {"opcode": process_opcode.LISTAPP})
         
     def start_app(self, app_id):
-        self.__request("process_management", 
+        return self.__request("process_management", 
                        {"opcode": process_opcode.STARTAPP, "app_id": app_id})
         
 if __name__ == "__main__":
     client = SocketClient()
     client.connect('127.0.0.1', 26100)
-    # procs = client.request_list_process()
-    # for proc in procs:
-    #     if proc["is_app"]:
-    #         print(proc)
+    procs = client.request_list_process()
+    for proc in procs:
+        if proc["is_app"]:
+            print(proc)
     # client.start_process("dxdiag")
     # client.kill_process(11380)
     # apps = client.request_list_app()
@@ -166,6 +166,6 @@ if __name__ == "__main__":
     # with open("test.md", "wb") as f:
     #     f.write(client.copy_file("E:\\repo\\remote-monitor\\README.md"))
     # client.del_file("E:\\repo\\remote-monitor\\test.md")
-    files = client.request_listdir("E:\\")
-    for file in files["content"]:
-        print(file["Filename"], file["Filetype"], file["Filesize"], file["Last modified"],)
+    # files = client.request_listdir("E:\\")
+    # for file in files["content"]:
+    #     print(file["Filename"], file["Filetype"], file["Filesize"], file["Last modified"])
