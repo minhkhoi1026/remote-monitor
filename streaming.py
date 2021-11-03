@@ -1,8 +1,3 @@
-"""
-Source: https://pypi.org/project/vidstream/
-Custom by RainbowDango
-"""
-
 import cv2
 import pyautogui
 import numpy as np
@@ -11,6 +6,7 @@ import socket
 import pickle
 import struct
 import threading
+from PyQt5.QtGui import QImage, QPixmap
 
 class StreamingServer:
     """
@@ -57,7 +53,7 @@ class StreamingServer:
         stop_server : stops the server and closes all connections
     """
 
-    def __init__(self, host, port, x_res=1024, y_res=576):
+    def __init__(self, host, port, x_res=None, y_res=None):
         """
         Creates a new instance of StreamingServer
 
@@ -108,14 +104,30 @@ class StreamingServer:
             else:
                 self.__used_slot = True
             self.__block.release()
-            thread = threading.Thread(target=self.__client_connection, args=(connection,))
+            thread = threading.Thread(target=self.__client_connection, args=(connection,), daemon = True)
             thread.start()
+            
+    def _get_frame(self):
+        """
+        Gets the next screenshot.
+
+        Returns
+        -------
+
+        frame : the next screenshot frame to be processed
+        """
+        screen = pyautogui.screenshot()
+        frame = np.array(screen)
+        frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+        if self.__x_res and self.__y_res:
+            frame = cv2.resize(frame, (self.__x_res, self.__y_res), interpolation=cv2.INTER_AREA)
+        return frame
 
     def __client_connection(self, connection):
         """
         Main method for sending client streaming data.
         """
-        while self.__used_slot and self.__running:
+        while self.__used_slot:
             frame = self._get_frame()
             result, frame = cv2.imencode('.jpg', frame, self.__encoding_parameters)
             data = pickle.dumps(frame, 0)
@@ -129,21 +141,6 @@ class StreamingServer:
                 self.__used_slot = False
             except BrokenPipeError:
                 self.__used_slot = False
-    
-    def _get_frame(self):
-        """
-        Gets the next screenshot.
-
-        Returns
-        -------
-
-        frame : the next screenshot frame to be processed
-        """
-        screen = pyautogui.screenshot()
-        frame = np.array(screen)
-        frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-        frame = cv2.resize(frame, (self.__x_res, self.__y_res), interpolation=cv2.INTER_AREA)
-        return frame
                 
     def start_server(self):
         """
@@ -174,42 +171,9 @@ class StreamingServer:
 class StreamingClient:
     """
     Class for the streaming client.
-
-    Attributes
-    ----------
-
-    Private:
-
-        __host : str
-            host address to connect to
-        __port : int
-            port to connect to
-        __quit_key : chr
-            key that has to be pressed to close connection (default = 'q')  
-        __running : bool
-            inicates if the client is already streaming or not
-        __client_socket : socket
-            the main client socket
-
-
-    Methods
-    -------
-
-    Private:
-
-        __client_streaming : main method for streaming the client data
-
-    Protected:
-
-        _get_frame : returns the frame to be sent to the server (overridden by child classes)
-        _cleanup : cleans up all the resources and closes everything
-
-    Public:
-
-        start_stream : starts the client stream in a new thread
     """
 
-    def __init__(self, host, port):
+    def __init__(self, window):
         """
         Creates a new instance of StreamingClient.
 
@@ -221,13 +185,11 @@ class StreamingClient:
         port : int
             port to connect to
         """
-        self.__host = host
-        self.__port = port
         self.__running = False
-        self.__quit_key = 'q'
+        self.__window = window
         self.__client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-    def start_stream(self):
+    def start_stream(self, host, port):
         """
         Starts client stream if it is not already running.
         """
@@ -236,7 +198,7 @@ class StreamingClient:
             print("Client is already streaming!")
         else:
             self.__running = True
-            client_thread = threading.Thread(target=self.__client_streaming)
+            client_thread = threading.Thread(target=self.__client_streaming, args=[host,port], daemon=True)
             client_thread.start()
 
     def stop_stream(self):
@@ -252,14 +214,14 @@ class StreamingClient:
         self.__client_socket.close()
         self.__running = False
 
-    def __client_streaming(self):
+    def __client_streaming(self, host, port):
         """
         Handles the individual server connections and processes their stream data.
         """
         payload_size = struct.calcsize('>L')
         data = b""
 
-        self.__client_socket.connect((self.__host, self.__port));
+        self.__client_socket.connect((host, port));
         while self.__running:
 
             while len(data) < payload_size:
@@ -285,9 +247,10 @@ class StreamingClient:
 
             frame = pickle.loads(frame_data, fix_imports=True, encoding="bytes")
             frame = cv2.imdecode(frame, cv2.IMREAD_COLOR)
-            cv2.imshow(self.__host, frame)
-            if cv2.waitKey(1) == ord(self.__quit_key):
-                break
+            height, width, channel = frame.shape
+            bytesPerLine = 3 * width
+            qImg = QImage(frame.data, width, height, bytesPerLine, QImage.Format_RGB888).rgbSwapped()
+            self.__window.setPixmap(QPixmap(qImg))
     
         self.__clean();
         
