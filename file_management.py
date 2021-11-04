@@ -105,9 +105,11 @@ def get_list_dir(root_dir = None):
     return files
 
 def get_parent_dir(path):
+    if path is None:
+        return None
     if os.path.dirname(path) == path:
         return None
-    return os.path.dirname(path) if (path is not None) else None
+    return os.path.dirname(path)
 
 def get_file(path):
     data = None

