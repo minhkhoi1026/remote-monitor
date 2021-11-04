@@ -4,7 +4,6 @@ import threading
 import struct
 import pickle
 from task_manager import process_opcode
-from utils import stoppabe_thread
 from file_management import *
 from keylogger import create_file_logger
 
@@ -145,9 +144,7 @@ class SocketClient:
     def start_app(self, app_id):
         return self.__request("process_management", 
                        {"opcode": process_opcode.STARTAPP, "app_id": app_id})
-
-from utils import stoppabe_thread
-
+        
 if __name__ == "__main__":
     client = SocketClient()
     client.connect('127.0.0.1', 26100)
