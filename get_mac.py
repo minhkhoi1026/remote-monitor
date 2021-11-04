@@ -4,7 +4,7 @@ import psutil
 def get_all_mac():
     res = []
     for interface, snics in psutil.net_if_addrs().items():
-        cur_nic = {"Name": interface}
+        cur_nic = {"Name": interface, "IP": "", "Subnet mask": "", "MAC": ""}
         for snic in snics:
             if snic.family == socket.AF_INET:
                 cur_nic["IP"] = snic.address

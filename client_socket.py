@@ -106,14 +106,22 @@ class SocketClient:
         return self.__request("file_management", 
                               {"opcode": file_opcode.LISTDIR, "path": root_path})
     
-    def paste_file(self, file_content, path):
+    def send_file(self, client_path, server_path):
+        with open(client_path, "rb") as f:
+            file_content = f.read()
         return self.__request("file_management", 
                             {"opcode": file_opcode.PASTEFILE, 
                             "file_content": file_content, 
-                            "path": path})
-    def copy_file(self, path):
-        return self.__request("file_management", 
-                            {"opcode": file_opcode.COPYFILE, "path": path})
+                            "path": server_path})
+        
+    def get_file(self, client_path, server_path):
+        data = self.__request("file_management", 
+                            {"opcode": file_opcode.COPYFILE, "path": server_path})
+        if (data is None): return None
+        with open(client_path, "wb") as f:
+            f.write(data)
+        return b""
+        
     def del_file(self, path):
         return self.__request("file_management", 
                             {"opcode": file_opcode.DELFILE, "path": path})
@@ -143,7 +151,6 @@ from utils import stoppabe_thread
 if __name__ == "__main__":
     client = SocketClient()
     client.connect('127.0.0.1', 26100)
-    print(client.request_listdir(None))
     # nics = client.request_mac()
     # for nic in nics:
     #     print(nic)
@@ -173,10 +180,7 @@ if __name__ == "__main__":
     # for app in apps:
     #     print(app)
     # client.start_app(apps[0]["AppID"])
-    # client.paste_file(get_file("README.md"), "E:\\README.md")
-    # with open("test.md", "wb") as f:
-    #     f.write(client.copy_file("E:\\repo\\remote-monitor\\README.md"))
-    # client.del_file("E:\\repo\\remote-monitor\\test.md")
+    client.get_file('E:\\abc.txt', 'C:\\Garena\\hehe.txt')
     # files = client.request_listdir("E:\\")
     # for file in files["content"]:
     #     print(file["Filename"], file["Filetype"], file["Filesize"], file["Last modified"])
