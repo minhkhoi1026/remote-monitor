@@ -840,23 +840,16 @@
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
-       <widget class="QPushButton" name="buttonKill">
-        <property name="text">
-         <string>Kill</string>
-        </property>
-       </widget>
-      </item>
-      <item>
        <widget class="QPushButton" name="buttonSee">
         <property name="text">
-         <string>See</string>
+         <string>Refresh</string>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QPushButton" name="buttonDelete">
         <property name="text">
-         <string>Delete</string>
+         <string>Clear</string>
         </property>
        </widget>
       </item>

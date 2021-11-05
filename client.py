@@ -122,7 +122,7 @@ class ClientWindow:
     def task_manager(self):
         self.hide_widgets()
         self.uic.widget_task_manager.show()
-
+        self.WidgetTaskManager.BtSee()
     
 
     #----- Code Area -----

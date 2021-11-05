@@ -5,21 +5,22 @@ class ClAddress:
     def __init__(self, socket,ui):
         self.ui=ui
         self.socket=socket
-        self.TMmodel = QtGui.QStandardItemModel()
-        self.TMmodel.setHorizontalHeaderLabels(["Name", "IP", "Subnet mask","MAC"])
-        self.ui.treeViewAddress.setModel(self.TMmodel)
+        self.addressModel = QtGui.QStandardItemModel()
+        self.addressModel.setHorizontalHeaderLabels(["Name", "IP", "Subnet mask","MAC"])
+        self.ui.treeViewAddress.setModel(self.addressModel)
         self.ui.treeViewAddress.setColumnWidth(0, 250)
+        self.ui.treeViewAddress.setStyleSheet("background-color: white")
         self.ui.treeViewAddress.expandAll()
 
     def clearAddress(self):
-        self.TMmodel.clear()
-        self.TMmodel.setHorizontalHeaderLabels(["Name", "IP", "Subnet mask","MAC"])
+        self.addressModel.clear()
+        self.addressModel.setHorizontalHeaderLabels(["Name", "IP", "Subnet mask","MAC"])
         self.ui.treeViewAddress.setColumnWidth(0, 250)
 
     def seeAddress(self):        
         self.clearAddress()
         data=self.socket.request_mac()
-        root = self.TMmodel.invisibleRootItem()
+        root = self.addressModel.invisibleRootItem()
         for value in data:
             a=QtGui.QStandardItem(value['Name'])
             a.setEditable(False)
@@ -35,3 +36,8 @@ class ClAddress:
                 QtGui.QStandardItem(c),
                 QtGui.QStandardItem(d)
                 ])
+        for i in range(0, len(data),2):
+            self.addressModel.setData(self.addressModel.index(i, 0), QtGui.QBrush(QtGui.QColor(221, 221, 221)), QtCore.Qt.BackgroundRole)
+            self.addressModel.setData(self.addressModel.index(i, 1), QtGui.QBrush(QtGui.QColor(221, 221, 221)), QtCore.Qt.BackgroundRole)
+            self.addressModel.setData(self.addressModel.index(i, 2), QtGui.QBrush(QtGui.QColor(221, 221, 221)), QtCore.Qt.BackgroundRole)
+            self.addressModel.setData(self.addressModel.index(i, 3), QtGui.QBrush(QtGui.QColor(221, 221, 221)), QtCore.Qt.BackgroundRole)
