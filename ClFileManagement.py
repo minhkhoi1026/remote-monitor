@@ -18,6 +18,8 @@ class ClFileManagement:
         self.ui.FileClient.customContextMenuRequested.connect(self.context_menu_client)
         self.ui.back.clicked.connect(self.FBackClient)
         self.ui.FileClient.doubleClicked.connect(self.open_folderClient)
+        self.ui.FileClient.setColumnWidth(1, 70)
+        self.ui.FileClient.setColumnWidth(0, 150)
         self.populate()
 
         self.pathServer=None
@@ -104,6 +106,8 @@ class ClFileManagement:
     def Clear(self):
         self.FServerModel.clear()
         self.FServerModel.setHorizontalHeaderLabels(["Filename","Filesize" , "Filetype","Last modified"])
+        self.ui.FileServer.setColumnWidth(1, 50)
+        self.ui.FileServer.setColumnWidth(0, 150)
     def importData(self):
         self.Clear()
         data=self.socket.request_listdir(self.pathServer)

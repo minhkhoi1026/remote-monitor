@@ -1,4 +1,4 @@
-from ClstartTask import AppView
+from ClstartTask import startApp,startProcess
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 class ClTaskManager:
@@ -14,7 +14,8 @@ class ClTaskManager:
         self.ui.treeViewProcess.expandAll()
 
         self.ui.buttonDelete.clicked.connect(self.BtDelete)
-        self.ui.buttonStartApp.clicked.connect(self.BtStart)
+        self.ui.buttonStartApp.clicked.connect(self.BtStartApp)
+        self.ui.buttonStartProcess.clicked.connect(self.BtStartProcess)
         self.ui.buttonSee.clicked.connect(self.BtSee)
         self.ui.buttonApp.clicked.connect(self.BtApp)
         self.ui.buttonKill.clicked.connect(self.BtKill)
@@ -27,9 +28,13 @@ class ClTaskManager:
             pid=self.ui.treeViewProcess.selectedIndexes()[1].data()
             self.socket.kill_process(int(pid))
             self.BtSee()
-    def BtStart(self):
-        self.dialog=AppView(self.socket)
-        self.dialog.show()
+    def BtStartApp(self):
+        self.dialog1=startApp(self.socket)
+        self.dialog1.show()
+
+    def BtStartProcess(self):
+        self.dialog2=startProcess(self.socket)
+        self.dialog2.show()
 
     def BtDelete(self):
         self.TMmodel.clear()
