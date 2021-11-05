@@ -92,16 +92,16 @@ class ClFileManagement:
         name = self.pathServer
         if self.pathServer[-1]!='\\':
             name += '\\'
-        print(name + self.ClCopied[1])
         self.socket.send_file(self.ClCopied[0],name+self.ClCopied[1])
         self.importData()
     def Action_ClCopy(self):
         if self.ui.FileClient.selectedIndexes()[2].data()!='File Folder':
             index = self.ui.FileClient.currentIndex()
             file_path = self.FClientModel.filePath(index)
-            print(file_path.replace('/','\\'))
             self.ClCopied=[file_path.replace('/','\\'),index.data()]
     def Action_ClPaste(self):
+        if not self.pathClient:
+            return 
         exist= os.path.exists(self.pathClient.replace('/','\\')+'\\'+self.SvCopied[1])
         if exist:
             self.show_popup()

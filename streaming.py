@@ -53,7 +53,7 @@ class StreamingServer:
         stop_server : stops the server and closes all connections
     """
 
-    def __init__(self, host, port, x_res=None, y_res=None):
+    def __init__(self, x_res=None, y_res=None):
         """
         Creates a new instance of StreamingServer
 
@@ -65,21 +65,21 @@ class StreamingServer:
         port : int
             port on which the server is listening
         """
-        self.__host = host
-        self.__port = port
+        self.__host = None
+        self.__port = None
         self.__running = False
         self.__x_res = x_res
         self.__y_res = y_res
         self.__used_slot = False;
         self.__block = threading.Lock()
         self.__server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.__init_socket() 
         self._configure()
     
     def __init_socket(self):
         """
         Binds the server socket to the given host and port
         """
+        self.__server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.__server_socket.bind((self.__host, self.__port))
 
     def _configure(self):
@@ -142,7 +142,7 @@ class StreamingServer:
             except BrokenPipeError:
                 self.__used_slot = False
                 
-    def start_server(self):
+    def start_server(self, host, port):
         """
         Starts the server if it is not running already.
         """
@@ -150,7 +150,10 @@ class StreamingServer:
             print("Server is already running")
         else:
             self.__running = True
-            server_thread = threading.Thread(target=self.__server_listening)
+            self.__host = host
+            self.__port = port
+            self.__init_socket()
+            server_thread = threading.Thread(target=self.__server_listening, daemon = True)
             server_thread.start()
     
     def stop_server(self):
