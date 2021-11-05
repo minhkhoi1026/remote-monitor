@@ -11,17 +11,17 @@ class ClTaskManager:
         self.ui.treeViewProcess.customContextMenuRequested.connect(self.context_menu_task)
         self.ui.treeViewProcess.setModel(self.TMmodel)
         self.ui.treeViewProcess.setColumnWidth(0, 250)
+        self.ui.treeViewProcess.setStyleSheet("background-color: white")
         self.ui.treeViewProcess.expandAll()
 
         self.ui.buttonDelete.clicked.connect(self.BtDelete)
         self.ui.buttonStartApp.clicked.connect(self.BtStart)
         self.ui.buttonSee.clicked.connect(self.BtSee)
         self.ui.buttonApp.clicked.connect(self.BtApp)
-        self.ui.buttonKill.clicked.connect(self.BtKill)
-        
 
     def BtApp(self):
         self.BtDelete()
+        self.BtSee()
     def BtKill(self):
         if self.ui.treeViewProcess.selectedIndexes() !=None:
             pid=self.ui.treeViewProcess.selectedIndexes()[1].data()
@@ -53,9 +53,14 @@ class ClTaskManager:
                     QtGui.QStandardItem(b),
                     QtGui.QStandardItem(c),
                     ])
+        for i in range(0, len(data),2):
+            self.TMmodel.setData(self.TMmodel.index(i, 0), QtGui.QBrush(QtGui.QColor(221, 221, 221)), QtCore.Qt.BackgroundRole)
+            self.TMmodel.setData(self.TMmodel.index(i, 1), QtGui.QBrush(QtGui.QColor(221, 221, 221)), QtCore.Qt.BackgroundRole)
+            self.TMmodel.setData(self.TMmodel.index(i, 2), QtGui.QBrush(QtGui.QColor(221, 221, 221)), QtCore.Qt.BackgroundRole)
+            self.TMmodel.setData(self.TMmodel.index(i, 3), QtGui.QBrush(QtGui.QColor(221, 221, 221)), QtCore.Qt.BackgroundRole)
     def context_menu_task(self):
         menu = QtWidgets.QMenu()
-        menuDelete = menu.addAction("Delete")
+        menuDelete = menu.addAction("Kill")
         menuDelete.triggered.connect(self.BtKill)
         cursor = QtGui.QCursor()
         menu.exec_(cursor.pos())
