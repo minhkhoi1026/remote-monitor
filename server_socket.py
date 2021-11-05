@@ -100,7 +100,7 @@ class SocketServer:
                     self.__used_slot = False
                     break
                 
-                print(request)
+                print(request[0])
                 data = b""
                 if request[0] == "request_mac":
                     data = self.__request_mac_handler()

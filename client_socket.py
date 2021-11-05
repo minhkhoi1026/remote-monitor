@@ -77,6 +77,7 @@ class SocketClient:
         
     def connect(self, host, port):
         try:
+            self.__client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             self.__client_socket.connect((host, port))
             self.running = True
             return True
