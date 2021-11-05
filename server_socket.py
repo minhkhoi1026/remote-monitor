@@ -9,6 +9,18 @@ from shutdown_logout import *
 from task_manager import *
 import threading
 
+def get_all_avail_host():
+    nics = get_all_mac()
+    hosts = ['0.0.0.0']
+    for nic in nics:
+        try:
+            try_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            try_socket.bind((nic['IP'], 26100))
+            hosts.append(nic['IP'])
+        except:
+            pass
+    return hosts
+
 BUF_SIZE = 256
 class SocketServer:
     def __init__(self, host, port):
@@ -201,6 +213,7 @@ class SocketServer:
             print("Server not running!")
 
 if __name__ == "__main__":
+    print(get_all_avail_host())
     server = SocketServer('127.0.0.1', 26100)
     server.start_server()
     time.sleep(50)
