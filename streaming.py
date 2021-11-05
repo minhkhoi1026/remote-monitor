@@ -191,6 +191,7 @@ class StreamingClient:
         self.__running = False
         self.__window = window
         self.__client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.__frame = None
 
     def start_stream(self, host, port):
         """
@@ -212,6 +213,12 @@ class StreamingClient:
             self.__running = False
         else:
             print("Client not streaming!")
+            
+    def save_screenshot(self, path):
+        if self.__frame is None:
+            return False
+        cv2.imwrite(path, self.__frame)
+        return True
             
     def __clean(self):
         self.__client_socket.close()
@@ -249,10 +256,10 @@ class StreamingClient:
             data = data[msg_size:]
 
             frame = pickle.loads(frame_data, fix_imports=True, encoding="bytes")
-            frame = cv2.imdecode(frame, cv2.IMREAD_COLOR)
-            height, width, channel = frame.shape
+            self.__frame = cv2.imdecode(frame, cv2.IMREAD_COLOR)
+            height, width, channel = self.__frame.shape
             bytesPerLine = 3 * width
-            qImg = QImage(frame.data, width, height, bytesPerLine, QImage.Format_RGB888).rgbSwapped()
+            qImg = QImage(self.__frame.data, width, height, bytesPerLine, QImage.Format_RGB888).rgbSwapped()
             self.__window.setPixmap(QPixmap(qImg))
     
         self.__clean();

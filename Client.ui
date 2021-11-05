@@ -6,14 +6,20 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1309</width>
-    <height>627</height>
+    <width>1270</width>
+    <height>620</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>1070</width>
-    <height>520</height>
+    <width>1270</width>
+    <height>620</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>1270</width>
+    <height>620</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -29,10 +35,10 @@
    <widget class="QWidget" name="widget_screen_stream" native="true">
     <property name="geometry">
      <rect>
-      <x>190</x>
-      <y>60</y>
-      <width>901</width>
-      <height>501</height>
+      <x>160</x>
+      <y>10</y>
+      <width>1101</width>
+      <height>601</height>
      </rect>
     </property>
     <property name="autoFillBackground">
@@ -64,10 +70,10 @@
     <widget class="QLabel" name="label_screen">
      <property name="geometry">
       <rect>
-       <x>20</x>
-       <y>50</y>
-       <width>691</width>
-       <height>411</height>
+       <x>180</x>
+       <y>30</y>
+       <width>881</width>
+       <height>491</height>
       </rect>
      </property>
      <property name="mouseTracking">
@@ -83,14 +89,152 @@
       <bool>true</bool>
      </property>
     </widget>
+    <widget class="QLineEdit" name="text_location_screen">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>110</x>
+       <y>540</y>
+       <width>631</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>MS Shell Dlg 2</family>
+       <pointsize>10</pointsize>
+       <weight>50</weight>
+       <bold>false</bold>
+      </font>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="button_screenshot">
+     <property name="geometry">
+      <rect>
+       <x>50</x>
+       <y>450</y>
+       <width>101</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>MS Shell Dlg 2</family>
+       <pointsize>10</pointsize>
+       <weight>50</weight>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Screenshot</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_14">
+     <property name="geometry">
+      <rect>
+       <x>50</x>
+       <y>540</y>
+       <width>51</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Location</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="button_browser_screen">
+     <property name="geometry">
+      <rect>
+       <x>50</x>
+       <y>490</y>
+       <width>101</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>MS Shell Dlg 2</family>
+       <pointsize>10</pointsize>
+       <weight>50</weight>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Browser</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="text_filename_screen">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>840</x>
+       <y>540</y>
+       <width>141</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>MS Shell Dlg 2</family>
+       <pointsize>10</pointsize>
+       <weight>50</weight>
+       <bold>false</bold>
+      </font>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_15">
+     <property name="geometry">
+      <rect>
+       <x>770</x>
+       <y>540</y>
+       <width>61</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Filename</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_16">
+     <property name="geometry">
+      <rect>
+       <x>980</x>
+       <y>540</y>
+       <width>81</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>.&lt;time&gt;.png</string>
+     </property>
+    </widget>
    </widget>
    <widget class="QWidget" name="widget_address" native="true">
     <property name="geometry">
      <rect>
-      <x>220</x>
-      <y>50</y>
-      <width>901</width>
-      <height>501</height>
+      <x>160</x>
+      <y>10</y>
+      <width>1101</width>
+      <height>601</height>
      </rect>
     </property>
     <property name="autoFillBackground">
@@ -122,10 +266,10 @@
     <widget class="QTreeView" name="treeViewAddress">
      <property name="geometry">
       <rect>
-       <x>40</x>
-       <y>60</y>
-       <width>811</width>
-       <height>391</height>
+       <x>90</x>
+       <y>70</y>
+       <width>921</width>
+       <height>461</height>
       </rect>
      </property>
     </widget>
@@ -133,10 +277,10 @@
    <widget class="QWidget" name="widget_control_input" native="true">
     <property name="geometry">
      <rect>
-      <x>310</x>
-      <y>20</y>
-      <width>901</width>
-      <height>501</height>
+      <x>160</x>
+      <y>10</y>
+      <width>1101</width>
+      <height>601</height>
      </rect>
     </property>
     <property name="autoFillBackground">
@@ -168,10 +312,10 @@
     <widget class="QPushButton" name="button_lock_input">
      <property name="geometry">
       <rect>
-       <x>30</x>
+       <x>50</x>
        <y>60</y>
        <width>101</width>
-       <height>61</height>
+       <height>71</height>
       </rect>
      </property>
      <property name="font">
@@ -189,8 +333,8 @@
     <widget class="QPushButton" name="button_start_keylogger">
      <property name="geometry">
       <rect>
-       <x>30</x>
-       <y>130</y>
+       <x>50</x>
+       <y>140</y>
        <width>101</width>
        <height>31</height>
       </rect>
@@ -210,8 +354,8 @@
     <widget class="QPushButton" name="button_stop_keylogger">
      <property name="geometry">
       <rect>
-       <x>30</x>
-       <y>170</y>
+       <x>50</x>
+       <y>180</y>
        <width>101</width>
        <height>31</height>
       </rect>
@@ -231,8 +375,8 @@
     <widget class="QPushButton" name="button_save_keylog">
      <property name="geometry">
       <rect>
-       <x>30</x>
-       <y>350</y>
+       <x>50</x>
+       <y>440</y>
        <width>101</width>
        <height>31</height>
       </rect>
@@ -252,9 +396,9 @@
     <widget class="QLabel" name="label_9">
      <property name="geometry">
       <rect>
-       <x>160</x>
+       <x>180</x>
        <y>50</y>
-       <width>71</width>
+       <width>51</width>
        <height>16</height>
       </rect>
      </property>
@@ -267,7 +411,7 @@
       <enum>QFrame::NoFrame</enum>
      </property>
      <property name="text">
-      <string>Keylogger</string>
+      <string>Keylog</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
@@ -276,10 +420,10 @@
     <widget class="QPushButton" name="button_unlock_input">
      <property name="geometry">
       <rect>
-       <x>30</x>
+       <x>50</x>
        <y>60</y>
        <width>101</width>
-       <height>61</height>
+       <height>71</height>
       </rect>
      </property>
      <property name="font">
@@ -294,15 +438,15 @@
       <string>Unlock Input</string>
      </property>
     </widget>
-    <widget class="QLineEdit" name="text_location">
+    <widget class="QLineEdit" name="text_location_keylog">
      <property name="enabled">
       <bool>true</bool>
      </property>
      <property name="geometry">
       <rect>
-       <x>90</x>
-       <y>440</y>
-       <width>541</width>
+       <x>110</x>
+       <y>530</y>
+       <width>671</width>
        <height>21</height>
       </rect>
      </property>
@@ -318,8 +462,8 @@
     <widget class="QPushButton" name="button_browser_keylog">
      <property name="geometry">
       <rect>
-       <x>30</x>
-       <y>390</y>
+       <x>50</x>
+       <y>480</y>
        <width>101</width>
        <height>31</height>
       </rect>
@@ -339,8 +483,8 @@
     <widget class="QLabel" name="label_11">
      <property name="geometry">
       <rect>
-       <x>30</x>
-       <y>440</y>
+       <x>50</x>
+       <y>530</y>
        <width>51</width>
        <height>21</height>
       </rect>
@@ -354,15 +498,15 @@
       <string>Location</string>
      </property>
     </widget>
-    <widget class="QLineEdit" name="text_filename">
+    <widget class="QLineEdit" name="text_filename_keylog">
      <property name="enabled">
       <bool>true</bool>
      </property>
      <property name="geometry">
       <rect>
-       <x>730</x>
-       <y>440</y>
-       <width>141</width>
+       <x>880</x>
+       <y>530</y>
+       <width>161</width>
        <height>21</height>
       </rect>
      </property>
@@ -378,8 +522,8 @@
     <widget class="QLabel" name="label_12">
      <property name="geometry">
       <rect>
-       <x>660</x>
-       <y>440</y>
+       <x>810</x>
+       <y>530</y>
        <width>61</width>
        <height>21</height>
       </rect>
@@ -396,8 +540,8 @@
     <widget class="QPushButton" name="button_delete_keylog">
      <property name="geometry">
       <rect>
-       <x>30</x>
-       <y>310</y>
+       <x>50</x>
+       <y>400</y>
        <width>101</width>
        <height>31</height>
       </rect>
@@ -414,13 +558,13 @@
       <string>Delete</string>
      </property>
     </widget>
-    <widget class="QLabel" name="keylogger">
+    <widget class="QLabel" name="keylog">
      <property name="geometry">
       <rect>
-       <x>150</x>
+       <x>170</x>
        <y>60</y>
-       <width>731</width>
-       <height>361</height>
+       <width>871</width>
+       <height>451</height>
       </rect>
      </property>
      <property name="font">
@@ -441,7 +585,7 @@
       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
      </property>
     </widget>
-    <zorder>keylogger</zorder>
+    <zorder>keylog</zorder>
     <zorder>label_12</zorder>
     <zorder>label_11</zorder>
     <zorder>button_unlock_input</zorder>
@@ -451,18 +595,18 @@
     <zorder>button_stop_keylogger</zorder>
     <zorder>button_save_keylog</zorder>
     <zorder>label_9</zorder>
-    <zorder>text_location</zorder>
+    <zorder>text_location_keylog</zorder>
     <zorder>button_browser_keylog</zorder>
-    <zorder>text_filename</zorder>
+    <zorder>text_filename_keylog</zorder>
     <zorder>button_delete_keylog</zorder>
    </widget>
    <widget class="QWidget" name="widget_logout_n_shutdown" native="true">
     <property name="geometry">
      <rect>
-      <x>340</x>
+      <x>160</x>
       <y>10</y>
-      <width>901</width>
-      <height>501</height>
+      <width>1101</width>
+      <height>601</height>
      </rect>
     </property>
     <property name="autoFillBackground">
@@ -491,37 +635,13 @@
       <string>Logout and Shutdown</string>
      </property>
     </widget>
-    <widget class="QLabel" name="label_shutdown_icon">
-     <property name="geometry">
-      <rect>
-       <x>370</x>
-       <y>160</y>
-       <width>31</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Adobe Arabic</family>
-       <pointsize>18</pointsize>
-       <weight>75</weight>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">image: url(:/image/image/icon_fail.png);</string>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
     <widget class="QPushButton" name="button_logout">
      <property name="geometry">
       <rect>
-       <x>410</x>
-       <y>160</y>
-       <width>121</width>
-       <height>31</height>
+       <x>470</x>
+       <y>200</y>
+       <width>151</width>
+       <height>41</height>
       </rect>
      </property>
      <property name="font">
@@ -536,37 +656,13 @@
       <string>Logout</string>
      </property>
     </widget>
-    <widget class="QLabel" name="label_shutdown_icon_2">
-     <property name="geometry">
-      <rect>
-       <x>370</x>
-       <y>250</y>
-       <width>31</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Adobe Arabic</family>
-       <pointsize>18</pointsize>
-       <weight>75</weight>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">image: url(:/image/image/icon_success.png);</string>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
     <widget class="QPushButton" name="button_shutdown">
      <property name="geometry">
       <rect>
-       <x>410</x>
-       <y>250</y>
-       <width>121</width>
-       <height>31</height>
+       <x>470</x>
+       <y>320</y>
+       <width>151</width>
+       <height>41</height>
       </rect>
      </property>
      <property name="font">
@@ -586,9 +682,9 @@
     <property name="geometry">
      <rect>
       <x>160</x>
-      <y>70</y>
-      <width>901</width>
-      <height>501</height>
+      <y>10</y>
+      <width>1101</width>
+      <height>601</height>
      </rect>
     </property>
     <property name="font">
@@ -623,14 +719,14 @@
       <string>Connection</string>
      </property>
     </widget>
-    <widget class="QLineEdit" name="edit_IP">
+    <widget class="QLineEdit" name="text_IP">
      <property name="enabled">
       <bool>true</bool>
      </property>
      <property name="geometry">
       <rect>
-       <x>230</x>
-       <y>130</y>
+       <x>420</x>
+       <y>240</y>
        <width>171</width>
        <height>31</height>
       </rect>
@@ -650,8 +746,8 @@
     <widget class="QPushButton" name="button_connect">
      <property name="geometry">
       <rect>
-       <x>230</x>
-       <y>170</y>
+       <x>420</x>
+       <y>280</y>
        <width>171</width>
        <height>31</height>
       </rect>
@@ -670,8 +766,8 @@
     <widget class="QLabel" name="label_8">
      <property name="geometry">
       <rect>
-       <x>150</x>
-       <y>130</y>
+       <x>340</x>
+       <y>240</y>
        <width>71</width>
        <height>31</height>
       </rect>
@@ -691,8 +787,8 @@
     <widget class="QLabel" name="label_connect_icon">
      <property name="geometry">
       <rect>
-       <x>230</x>
-       <y>290</y>
+       <x>420</x>
+       <y>400</y>
        <width>31</width>
        <height>31</height>
       </rect>
@@ -715,8 +811,8 @@
     <widget class="QLabel" name="label_connect_note">
      <property name="geometry">
       <rect>
-       <x>270</x>
-       <y>290</y>
+       <x>460</x>
+       <y>400</y>
        <width>131</width>
        <height>31</height>
       </rect>
@@ -739,8 +835,8 @@
     <widget class="QPushButton" name="button_disconnect">
      <property name="geometry">
       <rect>
-       <x>230</x>
-       <y>170</y>
+       <x>420</x>
+       <y>280</y>
        <width>171</width>
        <height>31</height>
       </rect>
@@ -773,7 +869,7 @@
     </widget>
     <zorder>button_disconnect</zorder>
     <zorder>label</zorder>
-    <zorder>edit_IP</zorder>
+    <zorder>text_IP</zorder>
     <zorder>label_8</zorder>
     <zorder>label_connect_icon</zorder>
     <zorder>label_connect_note</zorder>
@@ -782,10 +878,10 @@
    <widget class="QWidget" name="widget_task_manager" native="true">
     <property name="geometry">
      <rect>
-      <x>250</x>
-      <y>40</y>
-      <width>901</width>
-      <height>501</height>
+      <x>160</x>
+      <y>10</y>
+      <width>1101</width>
+      <height>601</height>
      </rect>
     </property>
     <property name="autoFillBackground">
@@ -817,10 +913,10 @@
     <widget class="QWidget" name="verticalLayoutWidget_2">
      <property name="geometry">
       <rect>
-       <x>60</x>
-       <y>90</y>
-       <width>731</width>
-       <height>381</height>
+       <x>120</x>
+       <y>100</y>
+       <width>851</width>
+       <height>451</height>
       </rect>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout">
@@ -832,9 +928,9 @@
     <widget class="QWidget" name="horizontalLayoutWidget">
      <property name="geometry">
       <rect>
-       <x>60</x>
+       <x>120</x>
        <y>40</y>
-       <width>731</width>
+       <width>851</width>
        <height>51</height>
       </rect>
      </property>
@@ -888,9 +984,9 @@
     <property name="geometry">
      <rect>
       <x>160</x>
-      <y>30</y>
-      <width>1071</width>
-      <height>501</height>
+      <y>10</y>
+      <width>1101</width>
+      <height>601</height>
      </rect>
     </property>
     <property name="autoFillBackground">
@@ -922,10 +1018,10 @@
     <widget class="QFrame" name="frame">
      <property name="geometry">
       <rect>
-       <x>30</x>
-       <y>80</y>
-       <width>511</width>
-       <height>351</height>
+       <x>10</x>
+       <y>40</y>
+       <width>531</width>
+       <height>551</height>
       </rect>
      </property>
      <property name="frameShape">
@@ -938,10 +1034,31 @@
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>10</y>
-        <width>481</width>
-        <height>341</height>
+        <y>70</y>
+        <width>501</width>
+        <height>461</height>
        </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_5">
+      <property name="geometry">
+       <rect>
+        <x>240</x>
+        <y>20</y>
+        <width>61</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Server</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
       </property>
      </widget>
     </widget>
@@ -949,9 +1066,9 @@
      <property name="geometry">
       <rect>
        <x>550</x>
-       <y>20</y>
-       <width>521</width>
-       <height>421</height>
+       <y>40</y>
+       <width>541</width>
+       <height>551</height>
       </rect>
      </property>
      <property name="frameShape">
@@ -965,8 +1082,8 @@
        <rect>
         <x>10</x>
         <y>60</y>
-        <width>511</width>
-        <height>351</height>
+        <width>521</width>
+        <height>481</height>
        </rect>
       </property>
       <property name="frameShape">
@@ -980,8 +1097,8 @@
         <rect>
          <x>10</x>
          <y>10</y>
-         <width>491</width>
-         <height>341</height>
+         <width>501</width>
+         <height>461</height>
         </rect>
        </property>
       </widget>
@@ -991,7 +1108,7 @@
        <rect>
         <x>20</x>
         <y>20</y>
-        <width>61</width>
+        <width>71</width>
         <height>28</height>
        </rect>
       </property>
@@ -1002,7 +1119,7 @@
      <widget class="QLabel" name="label_13">
       <property name="geometry">
        <rect>
-        <x>260</x>
+        <x>240</x>
         <y>20</y>
         <width>71</width>
         <height>31</height>
@@ -1016,25 +1133,10 @@
       <property name="text">
        <string>Client</string>
       </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
      </widget>
-    </widget>
-    <widget class="QLabel" name="label_5">
-     <property name="geometry">
-      <rect>
-       <x>260</x>
-       <y>40</y>
-       <width>61</width>
-       <height>41</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>10</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>Server</string>
-     </property>
     </widget>
    </widget>
    <widget class="QPushButton" name="button_connection">
@@ -1043,7 +1145,7 @@
       <x>10</x>
       <y>10</y>
       <width>139</width>
-      <height>61</height>
+      <height>71</height>
      </rect>
     </property>
     <property name="font">
@@ -1062,9 +1164,9 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>80</y>
+      <y>90</y>
       <width>139</width>
-      <height>31</height>
+      <height>41</height>
      </rect>
     </property>
     <property name="font">
@@ -1083,9 +1185,9 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>120</y>
+      <y>140</y>
       <width>139</width>
-      <height>31</height>
+      <height>41</height>
      </rect>
     </property>
     <property name="font">
@@ -1104,9 +1206,9 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>160</y>
+      <y>190</y>
       <width>139</width>
-      <height>31</height>
+      <height>41</height>
      </rect>
     </property>
     <property name="font">
@@ -1125,9 +1227,9 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>200</y>
+      <y>240</y>
       <width>139</width>
-      <height>31</height>
+      <height>41</height>
      </rect>
     </property>
     <property name="font">
@@ -1146,9 +1248,9 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>240</y>
+      <y>290</y>
       <width>139</width>
-      <height>31</height>
+      <height>41</height>
      </rect>
     </property>
     <property name="font">
@@ -1167,9 +1269,9 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>280</y>
+      <y>340</y>
       <width>139</width>
-      <height>31</height>
+      <height>41</height>
      </rect>
     </property>
     <property name="font">
@@ -1186,6 +1288,11 @@
    </widget>
    <zorder>widget_connection</zorder>
    <zorder>widget_screen_stream</zorder>
+   <zorder>widget_address</zorder>
+   <zorder>widget_task_manager</zorder>
+   <zorder>widget_file_explorer</zorder>
+   <zorder>widget_control_input</zorder>
+   <zorder>widget_logout_n_shutdown</zorder>
    <zorder>button_connection</zorder>
    <zorder>button_screen_stream</zorder>
    <zorder>button_address</zorder>
@@ -1193,11 +1300,6 @@
    <zorder>button_file_explorer</zorder>
    <zorder>button_control_input</zorder>
    <zorder>button_logout_n_shutdown</zorder>
-   <zorder>widget_logout_n_shutdown</zorder>
-   <zorder>widget_control_input</zorder>
-   <zorder>widget_address</zorder>
-   <zorder>widget_file_explorer</zorder>
-   <zorder>widget_task_manager</zorder>
   </widget>
  </widget>
  <resources>
