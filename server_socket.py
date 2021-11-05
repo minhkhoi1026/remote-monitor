@@ -203,13 +203,14 @@ class SocketServer:
         Stops the server and closes all connections
         """
         if self.__running:
-            self.__running = False
             closing_connection = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             closing_connection.connect((self.__host, self.__port))
             closing_connection.close()
             self.__block.acquire()
             self.__server_socket.close()
             self.__block.release()
+            self.__running = False
+            self.__used_slot = False
         else:
             print("Server not running!")
 
