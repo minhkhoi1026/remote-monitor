@@ -20,6 +20,7 @@ class ClFileManagement:
         self.ui.FileClient.doubleClicked.connect(self.open_folderClient)
         self.ui.FileClient.setColumnWidth(1, 70)
         self.ui.FileClient.setColumnWidth(0, 150)
+        self.ui.FileClient.setStyleSheet("background-color: white")
         self.populate()
 
         self.pathServer=None
@@ -30,6 +31,7 @@ class ClFileManagement:
         self.ui.FileServer.setContextMenuPolicy(QtCore.Qt.CustomContextMenu)
         self.ui.FileServer.customContextMenuRequested.connect(self.context_menu_server)
         self.ui.FileServer.doubleClicked.connect(self.open_folderServer)
+        self.ui.FileServer.setStyleSheet("background-color: white")
         #----- Client File -----
     def FBackClient(self):
         if self.pathClient!=None:
