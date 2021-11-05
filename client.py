@@ -15,7 +15,7 @@ def addText(widget, new_text):
     widget.setText(widget.text() + new_text)
 
 class ClientWindow:
-    def __init__(self, socket):
+    def __init__(self):
         # --- create window ---
         self.main_win = QMainWindow()
         self.uic = Ui_MainWindow()
@@ -109,27 +109,28 @@ class ClientWindow:
         self.uic.button_screen_stream.clicked.connect(self.screen_stream)
         self.uic.button_screenshot.clicked.connect(self.screenshot)
         self.uic.button_browser_screen.clicked.connect(self.browser_screen)
-        self.uic.text_location_screen.setText(get_document_path())
+        self.uic.text_directory_screen.setText(get_document_path())
     def screen_stream(self):
         self.hide_widgets()
         self.uic.widget_screen_stream.show()
     def screenshot(self):
-        location = self.uic.text_location_screen.text().strip()
+        directory = self.uic.text_directory_screen.text().strip()
         filename = self.uic.text_filename_screen.text().strip()
-        if location == "":
-            self.uic.text_location_screen.setText(get_document_path())
+        if directory == "":
+            self.uic.text_directory_screen.setText(get_document_path())
             return self.screenshot()
         if filename == "":
             filename = self.server_IP
         filename += datetime.now().strftime("_d%d.%m.%Y_t%H.%M.%S") + ".png"
 
-        filepath = os.path.join(location, filename)
+        filepath = os.path.join(directory, filename)
         self.stream_socket.save_screenshot(filepath)
+        return self.uic.text_status_screen.setText("Saved to\n" + filename)
     def browser_screen(self):
         path = QFileDialog.getExistingDirectory()
         if path != "":
             path = "\\".join(path.split("/"))
-            self.uic.text_location_screen.setText(path)
+            self.uic.text_directory_screen.setText(path)
     
 
     #----- Code Area -----
@@ -142,8 +143,6 @@ class ClientWindow:
     def task_manager(self):
         self.hide_widgets()
         self.uic.widget_task_manager.show()
-        self.WidgetTaskManager.BtSee()
-    
 
     #----- Code Area -----
     def file_explorer(self):
@@ -171,16 +170,12 @@ class ClientWindow:
         self.socket.control_input(True)
         self.uic.button_lock_input.hide()
         self.uic.button_unlock_input.show()
-        self.uic.button_start_keylogger.setEnabled(False)
-        self.uic.button_stop_keylogger.setEnabled(False)
         self.hide_widgets()
         self.uic.widget_control_input.show()
     def unlock_input(self):
         self.socket.control_input(True)
         self.uic.button_lock_input.show()
         self.uic.button_unlock_input.hide()
-        self.uic.button_start_keylogger.setEnabled(True)
-        self.uic.button_stop_keylogger.setEnabled(False)
     def start_keylogger(self):
         self.socket.start_keyhook(self.uic.keylog)
         self.uic.button_start_keylogger.setEnabled(False)
@@ -193,19 +188,22 @@ class ClientWindow:
     def delete_keylog(self):
         self.uic.keylog.setText("")
     def save_keylog(self):
-        location = self.uic.text_location_keylog.text().strip()
+        directory = self.uic.text_directory_keylog.text().strip()
         filename = self.uic.text_filename_keylog.text().strip()
-        if location == "" or filename == "":
-            return self.browser_keylog()
-        filepath = os.path.join(location, filename)
+        if directory == "":
+            return self.uic.text_status_keylogger.setText("No directory")
+        if filename == "":
+            return self.uic.text_status_keylogger.setText("No filename")
+        filepath = os.path.join(directory, filename)
         text = self.uic.keylog.text()
         fwrite = open(filepath,"w")
         fwrite.write(text)
+        return self.uic.text_status_keylogger.setText("Saved to " + filename)
     def browser_keylog(self):
         path = QFileDialog.getExistingDirectory()
         if path != "":
             path = "\\".join(path.split("/"))
-            self.uic.text_location_keylog.setText(path)
+            self.uic.text_directory_keylog.setText(path)
 
 
     #----- Code Area -----
@@ -229,6 +227,6 @@ class ClientWindow:
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    main_win = ClientWindow(None)
+    main_win = ClientWindow()
     main_win.show()
     sys.exit(app.exec())

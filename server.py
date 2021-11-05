@@ -32,7 +32,7 @@ from streaming import StreamingServer
 
 
 class ServerWindow:
-    def __init__(self, socket):
+    def __init__(self):
         self.main_win = QMainWindow()
         self.uic = Ui_MainWindow()
         self.uic.setupUi(self.main_win)
@@ -60,7 +60,7 @@ class ServerWindow:
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    main_win = ServerWindow(None)
+    main_win = ServerWindow()
     main_win.show()
     sys.exit(app.exec())
 
