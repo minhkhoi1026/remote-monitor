@@ -1036,19 +1036,21 @@
      <widget class="QLabel" name="label_5">
       <property name="geometry">
        <rect>
-        <x>240</x>
+        <x>220</x>
         <y>20</y>
-        <width>61</width>
+        <width>81</width>
         <height>31</height>
        </rect>
       </property>
       <property name="font">
        <font>
-        <pointsize>10</pointsize>
+        <pointsize>12</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
        </font>
       </property>
       <property name="text">
-       <string>Server</string>
+       <string>SERVER</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -1100,7 +1102,7 @@
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>20</y>
+        <y>30</y>
         <width>71</width>
         <height>28</height>
        </rect>
@@ -1112,19 +1114,21 @@
      <widget class="QLabel" name="label_13">
       <property name="geometry">
        <rect>
-        <x>240</x>
+        <x>220</x>
         <y>20</y>
-        <width>71</width>
+        <width>91</width>
         <height>31</height>
        </rect>
       </property>
       <property name="font">
        <font>
-        <pointsize>10</pointsize>
+        <pointsize>12</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
        </font>
       </property>
       <property name="text">
-       <string>Client</string>
+       <string>CLIENT</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -1283,7 +1287,6 @@
    <zorder>widget_screen_stream</zorder>
    <zorder>widget_address</zorder>
    <zorder>widget_task_manager</zorder>
-   <zorder>widget_file_explorer</zorder>
    <zorder>widget_control_input</zorder>
    <zorder>widget_logout_n_shutdown</zorder>
    <zorder>button_connection</zorder>
@@ -1293,6 +1296,7 @@
    <zorder>button_file_explorer</zorder>
    <zorder>button_control_input</zorder>
    <zorder>button_logout_n_shutdown</zorder>
+   <zorder>widget_file_explorer</zorder>
   </widget>
  </widget>
  <resources>
