@@ -178,8 +178,8 @@ class ClientWindow:
         self.uic.widget_control_input.show()
     def unlock_input(self):
         self.socket.control_input(True)
-        self.uic.button_lock_input.hide()
-        self.uic.button_unlock_input.show()
+        self.uic.button_lock_input.show()
+        self.uic.button_unlock_input.hide()
         self.uic.button_start_keylogger.setEnabled(False)
         self.uic.button_stop_keylogger.setEnabled(False)
     def start_keylogger(self):
