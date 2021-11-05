@@ -57,7 +57,7 @@ class SocketServer:
             self.__block.acquire()
             connection, address = self.__server_socket.accept()
             if self.__used_slot:
-                # print("Connection refused! No free slots!")
+                print("Connection refused! No free slots!")
                 connection.close()
                 self.__block.release()
                 continue
