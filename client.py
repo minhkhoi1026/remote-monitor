@@ -6,7 +6,6 @@ from PyQt5.QtGui import QImage, QPixmap, QPalette, QPainter
 from ClientGui import Ui_MainWindow
 from client_socket import SocketClient
 from streaming import StreamingClient
-from startTask import AppView
 from ClTaskManager import ClTaskManager
 from ClFileManagement import ClFileManagement
 from ClAddress import ClAddress

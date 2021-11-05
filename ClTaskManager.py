@@ -1,4 +1,4 @@
-from startTask import AppView
+from ClstartTask import AppView
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 class ClTaskManager:
@@ -14,7 +14,7 @@ class ClTaskManager:
         self.ui.treeViewProcess.expandAll()
 
         self.ui.buttonDelete.clicked.connect(self.BtDelete)
-        self.ui.buttonStart.clicked.connect(self.BtStart)
+        self.ui.buttonStartApp.clicked.connect(self.BtStart)
         self.ui.buttonSee.clicked.connect(self.BtSee)
         self.ui.buttonApp.clicked.connect(self.BtApp)
         self.ui.buttonKill.clicked.connect(self.BtKill)
