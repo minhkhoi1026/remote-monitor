@@ -1,0 +1,6 @@
+<RCC>
+  <qresource prefix="image">
+    <file>image/icon_success.png</file>
+    <file>image/icon_fail.png</file>
+  </qresource>
+</RCC>
