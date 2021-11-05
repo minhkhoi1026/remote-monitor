@@ -146,11 +146,8 @@ class ClientWindow:
     def task_manager(self):
         self.hide_widgets()
         self.uic.widget_task_manager.show()
-<<<<<<< HEAD
         self.WidgetTaskManager.BtSee()
     
-=======
->>>>>>> 50af22bfccf0530e8c318e2edb999f47a997280c
 
     #----- Code Area -----
     def file_explorer(self):
