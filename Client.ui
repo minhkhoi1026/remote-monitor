@@ -659,7 +659,7 @@
     <zorder>text_filename_keylog</zorder>
     <zorder>button_clear_keylog</zorder>
    </widget>
-   <widget class="QWidget" name="widget_logout_n_shutdown" native="true">
+   <widget class="QWidget" name="widget_power" native="true">
     <property name="geometry">
      <rect>
       <x>160</x>
@@ -691,15 +691,15 @@
       </font>
      </property>
      <property name="text">
-      <string>Logout and Shutdown</string>
+      <string>Power</string>
      </property>
     </widget>
     <widget class="QPushButton" name="button_logout">
      <property name="geometry">
       <rect>
-       <x>470</x>
+       <x>460</x>
        <y>200</y>
-       <width>151</width>
+       <width>161</width>
        <height>41</height>
       </rect>
      </property>
@@ -712,15 +712,21 @@
       </font>
      </property>
      <property name="text">
-      <string>Logout</string>
+      <string>   Logout   </string>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>27</width>
+       <height>27</height>
+      </size>
      </property>
     </widget>
     <widget class="QPushButton" name="button_shutdown">
      <property name="geometry">
       <rect>
-       <x>470</x>
+       <x>460</x>
        <y>320</y>
-       <width>151</width>
+       <width>161</width>
        <height>41</height>
       </rect>
      </property>
@@ -733,7 +739,13 @@
       </font>
      </property>
      <property name="text">
-      <string>Shutdown</string>
+      <string> Shutdown </string>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>27</width>
+       <height>27</height>
+      </size>
      </property>
     </widget>
    </widget>
@@ -1213,7 +1225,13 @@
      </font>
     </property>
     <property name="text">
-     <string>Connection</string>
+     <string> Connection      </string>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>27</width>
+      <height>27</height>
+     </size>
     </property>
    </widget>
    <widget class="QPushButton" name="button_screen_stream">
@@ -1234,7 +1252,13 @@
      </font>
     </property>
     <property name="text">
-     <string>Screen Stream</string>
+     <string> Screen Stream</string>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>27</width>
+      <height>27</height>
+     </size>
     </property>
    </widget>
    <widget class="QPushButton" name="button_address">
@@ -1255,7 +1279,13 @@
      </font>
     </property>
     <property name="text">
-     <string>Address</string>
+     <string> Address          </string>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>27</width>
+      <height>27</height>
+     </size>
     </property>
    </widget>
    <widget class="QPushButton" name="button_task_manager">
@@ -1276,7 +1306,13 @@
      </font>
     </property>
     <property name="text">
-     <string>Task Manager</string>
+     <string> Task Manager </string>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>27</width>
+      <height>27</height>
+     </size>
     </property>
    </widget>
    <widget class="QPushButton" name="button_file_explorer">
@@ -1297,7 +1333,13 @@
      </font>
     </property>
     <property name="text">
-     <string>File Explorer</string>
+     <string> File Explorer    </string>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>27</width>
+      <height>27</height>
+     </size>
     </property>
    </widget>
    <widget class="QPushButton" name="button_control_input">
@@ -1318,10 +1360,16 @@
      </font>
     </property>
     <property name="text">
-     <string>Control Input</string>
+     <string> Control Input   </string>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>27</width>
+      <height>27</height>
+     </size>
     </property>
    </widget>
-   <widget class="QPushButton" name="button_logout_n_shutdown">
+   <widget class="QPushButton" name="button_power">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -1339,23 +1387,29 @@
      </font>
     </property>
     <property name="text">
-     <string>Logout and Shutdown</string>
+     <string> Power            </string>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>27</width>
+      <height>27</height>
+     </size>
     </property>
    </widget>
-   <zorder>widget_logout_n_shutdown</zorder>
    <zorder>widget_file_explorer</zorder>
    <zorder>widget_connection</zorder>
    <zorder>widget_screen_stream</zorder>
    <zorder>widget_address</zorder>
    <zorder>widget_task_manager</zorder>
    <zorder>widget_control_input</zorder>
+   <zorder>widget_power</zorder>
    <zorder>button_connection</zorder>
    <zorder>button_screen_stream</zorder>
    <zorder>button_address</zorder>
    <zorder>button_task_manager</zorder>
    <zorder>button_file_explorer</zorder>
    <zorder>button_control_input</zorder>
-   <zorder>button_logout_n_shutdown</zorder>
+   <zorder>button_power</zorder>
   </widget>
  </widget>
  <resources>

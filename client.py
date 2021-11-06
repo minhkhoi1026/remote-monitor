@@ -37,11 +37,14 @@ class ClientWindow:
         self.connection_setup()
         self.screen_stream_setup()
         self.control_input_setup()
-        self.logout_n_shutdown_setup()
+        self.power_setup()
         
         self.uic.button_address.clicked.connect(self.address)
+        self.uic.button_address.setIcon(QIcon("image\\icon_address.png"))
         self.uic.button_task_manager.clicked.connect(self.task_manager)
+        self.uic.button_task_manager.setIcon(QIcon("image\\icon_task_manager.png"))
         self.uic.button_file_explorer.clicked.connect(self.file_explorer)
+        self.uic.button_file_explorer.setIcon(QIcon("image\\icon_file_explorer.png"))
         self.WidgetTaskManager=ClTaskManager(self.socket,self.uic)
         self.WidgetFileManagemnet=ClFileManagement(self.socket,self.uic)
         self.WidgetAddress=ClAddress(self.socket,self.uic)
@@ -55,21 +58,22 @@ class ClientWindow:
         self.uic.widget_task_manager.hide()
         self.uic.widget_file_explorer.hide()
         self.uic.widget_control_input.hide()
-        self.uic.widget_logout_n_shutdown.hide()
+        self.uic.widget_power.hide()
     def change_status_buttons(self, is_enabled):
         self.uic.button_screen_stream.setEnabled(is_enabled)
         self.uic.button_address.setEnabled(is_enabled)
         self.uic.button_task_manager.setEnabled(is_enabled)
         self.uic.button_file_explorer.setEnabled(is_enabled)
         self.uic.button_control_input.setEnabled(is_enabled)
-        self.uic.button_logout_n_shutdown.setEnabled(is_enabled)
+        self.uic.button_power.setEnabled(is_enabled)
 
     #----- Code Area -----
     def connection_setup(self):
         self.uic.button_connection.clicked.connect(self.connection)
+        self.uic.button_connection.setIcon(QIcon("image\\icon_connect.png"))
         self.uic.button_connect.clicked.connect(self.connect)
         self.uic.button_disconnect.clicked.connect(self.disconnect)
-        #self.uic.edit_IP.enterEvent.connect(self.connect)
+        self.uic.text_IP.returnPressed.connect(self.connect)
         self.uic.label_connect_icon.hide()
         self.uic.label_connect_note.hide()
         self.uic.button_disconnect.hide()
@@ -112,6 +116,7 @@ class ClientWindow:
     #----- Code Area -----
     def screen_stream_setup(self):
         self.uic.button_screen_stream.clicked.connect(self.screen_stream)
+        self.uic.button_screen_stream.setIcon(QIcon("image\\icon_screen.png"))
         self.uic.button_screenshot.clicked.connect(self.screenshot)
         self.uic.button_browser_screen.clicked.connect(self.browser_screen)
         self.uic.text_directory_screen.setText(get_document_path())
@@ -159,6 +164,7 @@ class ClientWindow:
     #----- Code Area -----
     def control_input_setup(self):
         self.uic.button_control_input.clicked.connect(self.control_input)
+        self.uic.button_control_input.setIcon(QIcon("image\\icon_input.png"))
         self.uic.button_lock_input.clicked.connect(self.lock_input)
         self.uic.button_unlock_input.clicked.connect(self.unlock_input)
         self.uic.button_start_keylogger.clicked.connect(self.start_keylogger)
@@ -176,8 +182,6 @@ class ClientWindow:
         self.socket.control_input(True)
         self.uic.button_lock_input.hide()
         self.uic.button_unlock_input.show()
-        self.hide_widgets()
-        self.uic.widget_control_input.show()
     def unlock_input(self):
         self.socket.control_input(False)
         self.uic.button_lock_input.show()
@@ -213,13 +217,16 @@ class ClientWindow:
 
 
     #----- Code Area -----
-    def logout_n_shutdown_setup(self):
-        self.uic.button_logout_n_shutdown.clicked.connect(self.logout_n_shutdown)
+    def power_setup(self):
+        self.uic.button_power.clicked.connect(self.power)
+        self.uic.button_power.setIcon(QIcon("image\\icon_power.png"))
         self.uic.button_logout.clicked.connect(self.logout)
+        self.uic.button_logout.setIcon(QIcon("image\\icon_logout.png"))
         self.uic.button_shutdown.clicked.connect(self.shutdown)
-    def logout_n_shutdown(self):
+        self.uic.button_shutdown.setIcon(QIcon("image\\icon_shutdown.png"))
+    def power(self):
         self.hide_widgets()
-        self.uic.widget_logout_n_shutdown.show()
+        self.uic.widget_power.show()
     def logout(self):
         self.socket.logout()
     def shutdown(self):
