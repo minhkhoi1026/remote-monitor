@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>320</width>
-    <height>240</height>
+    <width>280</width>
+    <height>270</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,10 +17,10 @@
    <widget class="QPushButton" name="button_start">
     <property name="geometry">
      <rect>
-      <x>80</x>
+      <x>60</x>
       <y>50</y>
       <width>161</width>
-      <height>61</height>
+      <height>81</height>
      </rect>
     </property>
     <property name="font">
@@ -35,10 +35,10 @@
    <widget class="QPushButton" name="button_stop">
     <property name="geometry">
      <rect>
-      <x>80</x>
-      <y>130</y>
+      <x>60</x>
+      <y>50</y>
       <width>161</width>
-      <height>61</height>
+      <height>81</height>
      </rect>
     </property>
     <property name="font">
@@ -50,6 +50,43 @@
      <string>Stop</string>
     </property>
    </widget>
+   <widget class="QComboBox" name="comboBox_IP">
+    <property name="geometry">
+     <rect>
+      <x>60</x>
+      <y>150</y>
+      <width>161</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>150</y>
+      <width>21</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>IP:</string>
+    </property>
+   </widget>
+   <zorder>button_stop</zorder>
+   <zorder>button_start</zorder>
+   <zorder>comboBox_IP</zorder>
+   <zorder>label</zorder>
   </widget>
  </widget>
  <resources/>
