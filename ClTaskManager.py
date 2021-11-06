@@ -49,7 +49,7 @@ class ClTaskManager:
         data=self.socket.request_list_process()
         root = self.TMmodel.invisibleRootItem()
         for value in data:
-            if value['is_app']==self.ui.buttonApp.isChecked():
+            if value['is_app'] or not self.ui.buttonApp.isChecked():
                 a=QtGui.QStandardItem(value['Name'])
                 a.setEditable(False)
                 b=QtGui.QStandardItem(value['PID'])
