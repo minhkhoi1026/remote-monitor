@@ -1,3 +1,4 @@
+import my_socket
 import socket
 import time
 import threading
@@ -37,26 +38,10 @@ class SocketClient:
         """
         try:
             # send request to server
-            msg = pickle.dumps([event, data])
-            size = len(msg)
-            self.__client_socket.sendall(struct.pack('>L', size) + msg)
+            self.__client_socket.send([event, data])
             
             # receive response from server
-            # size of message
-            payload_size = struct.calcsize('>L')
-            packed_msg_size = self.__client_socket.recv(payload_size)
-            if packed_msg_size == b'' or not self.running:
-                return self.__clean()
-
-            data = b""
-            msg_size = struct.unpack(">L", packed_msg_size)[0]
-            size = msg_size
-            
-            # message content
-            while size > 0:
-                data += self.__client_socket.recv(min(size, BUF_SIZE))
-                size = msg_size - len(data)
-            return pickle.loads(data)
+            return self.__client_socket.recv(BUF_SIZE)
         except ConnectionResetError:
             return self.__clean()
         except ConnectionAbortedError:
@@ -89,6 +74,7 @@ class SocketClient:
         try:
             self.__client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             self.__client_socket.connect((host, port))
+            self.__client_socket = my_socket.socket_adapter(self.__client_socket)
             self.running = True
             return True
         except ConnectionRefusedError:

@@ -1,5 +1,6 @@
 from os import kill
 import socket
+import my_socket
 import struct
 from get_mac import get_all_mac
 from keylogger import KeyLogger
@@ -64,27 +65,15 @@ class SocketServer:
             else:
                 self.__used_slot = True
             self.__block.release()
+            connection = my_socket.socket_adapter(connection)
             thread = threading.Thread(target=self.__client_connection, args=(connection,), daemon = True)
             thread.start()
 
-    def __receive_msg(self, connection):
+    def __receive_request(self, connection):
         """
         Utility function to receive request from client
         """
-        # size of message
-        payload_size = struct.calcsize('>L')
-        packed_msg_size = connection.recv(payload_size)
-        if packed_msg_size == b'' or not self.__running:
-            return None
-        msg_size = struct.unpack(">L", packed_msg_size)[0]
-        size = msg_size
-        
-        # message content
-        data = b""
-        while size > 0:
-            data += connection.recv(min(size, BUF_SIZE))
-            size = msg_size - len(data)
-        return pickle.loads(data)
+        return connection.recv(BUF_SIZE)
 
     def __client_connection(self, connection):
         """
@@ -92,13 +81,13 @@ class SocketServer:
         """
         while self.__used_slot and self.__running:
             try:
-                request = self.__receive_msg(connection)
+                request = self.__receive_request(connection)
             
                 if (request is None):
                     self.__used_slot = False
                     break
                 
-                print(request[0])
+                print(request)
                 data = b""
                 if request[0] == "request_mac":
                     data = self.__request_mac_handler()
@@ -117,9 +106,7 @@ class SocketServer:
                 elif request[0] == "process_management":
                     data = self.__process_management_handler(request[1])
                 # encode data and send through socket
-                data = pickle.dumps(data)
-                size = len(data)
-                connection.sendall(struct.pack('>L', size) + data)
+                connection.send(data)
             except ConnectionResetError:
                 self.__used_slot = False
             except ConnectionAbortedError:
