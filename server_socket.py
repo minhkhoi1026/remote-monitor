@@ -204,6 +204,8 @@ class SocketServer:
         """
         if self.__running:
             closing_connection = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            if self.__host == '0.0.0.0':
+                self.__host = '127.0.0.1'
             closing_connection.connect((self.__host, self.__port))
             closing_connection.close()
             self.__block.acquire()
