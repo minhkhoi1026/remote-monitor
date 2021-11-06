@@ -22,6 +22,10 @@ class ClTaskManager:
 
     def BtApp(self):
         self.BtDelete()
+        if self.ui.buttonApp.isChecked():
+            self.ui.icon_app_proc.setStyleSheet("border-image: url(:/image/image/icon_app.png);")
+        else:
+            self.ui.icon_app_proc.setStyleSheet("border-image: url(:/image/image/icon_process.png);")
         self.BtSee()
     def BtKill(self):
         if self.ui.treeViewProcess.selectedIndexes() !=None:

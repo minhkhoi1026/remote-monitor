@@ -22,12 +22,14 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setPointSize(12)
         self.button_start.setFont(font)
+        self.button_start.setIconSize(QtCore.QSize(30, 30))
         self.button_start.setObjectName("button_start")
         self.button_stop = QtWidgets.QPushButton(self.centralwidget)
         self.button_stop.setGeometry(QtCore.QRect(60, 50, 161, 81))
         font = QtGui.QFont()
         font.setPointSize(12)
         self.button_stop.setFont(font)
+        self.button_stop.setIconSize(QtCore.QSize(30, 30))
         self.button_stop.setObjectName("button_stop")
         self.comboBox_IP = QtWidgets.QComboBox(self.centralwidget)
         self.comboBox_IP.setGeometry(QtCore.QRect(60, 150, 161, 22))
@@ -53,8 +55,8 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.button_start.setText(_translate("MainWindow", "Start"))
-        self.button_stop.setText(_translate("MainWindow", "Stop"))
+        self.button_start.setText(_translate("MainWindow", "  Open     "))
+        self.button_stop.setText(_translate("MainWindow", "  Close     "))
         self.label.setText(_translate("MainWindow", "IP:"))
 
 
