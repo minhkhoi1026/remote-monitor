@@ -59,8 +59,8 @@ class ServerWindow:
 
 
 if __name__ == "__main__":
-    if not admin.isUserAdmin():
-        admin.runAsAdmin()
+    # if not admin.isUserAdmin():
+    #     admin.runAsAdmin()
     app = QApplication(sys.argv)
     main_win = ServerWindow()
     main_win.show()
