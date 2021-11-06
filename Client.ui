@@ -89,7 +89,7 @@
       <bool>true</bool>
      </property>
     </widget>
-    <widget class="QLineEdit" name="text_location_screen">
+    <widget class="QLineEdit" name="text_directory_screen">
      <property name="enabled">
       <bool>true</bool>
      </property>
@@ -146,7 +146,7 @@
       </font>
      </property>
      <property name="text">
-      <string>Location</string>
+      <string>Directory</string>
      </property>
     </widget>
     <widget class="QPushButton" name="button_browser_screen">
@@ -227,6 +227,40 @@
       <string>.&lt;time&gt;.png</string>
      </property>
     </widget>
+    <widget class="QLabel" name="text_status_screen">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>410</y>
+       <width>171</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::NoFrame</enum>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <zorder>text_status_screen</zorder>
+    <zorder>label_7</zorder>
+    <zorder>label_screen</zorder>
+    <zorder>text_directory_screen</zorder>
+    <zorder>button_screenshot</zorder>
+    <zorder>label_14</zorder>
+    <zorder>button_browser_screen</zorder>
+    <zorder>text_filename_screen</zorder>
+    <zorder>label_15</zorder>
+    <zorder>label_16</zorder>
    </widget>
    <widget class="QWidget" name="widget_address" native="true">
     <property name="geometry">
@@ -396,7 +430,7 @@
     <widget class="QLabel" name="label_9">
      <property name="geometry">
       <rect>
-       <x>180</x>
+       <x>200</x>
        <y>50</y>
        <width>51</width>
        <height>16</height>
@@ -438,7 +472,7 @@
       <string>Unlock Input</string>
      </property>
     </widget>
-    <widget class="QLineEdit" name="text_location_keylog">
+    <widget class="QLineEdit" name="text_directory_keylog">
      <property name="enabled">
       <bool>true</bool>
      </property>
@@ -495,7 +529,7 @@
       </font>
      </property>
      <property name="text">
-      <string>Location</string>
+      <string>Directory</string>
      </property>
     </widget>
     <widget class="QLineEdit" name="text_filename_keylog">
@@ -561,9 +595,9 @@
     <widget class="QLabel" name="keylog">
      <property name="geometry">
       <rect>
-       <x>170</x>
+       <x>190</x>
        <y>60</y>
-       <width>871</width>
+       <width>851</width>
        <height>451</height>
       </rect>
      </property>
@@ -585,6 +619,31 @@
       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
      </property>
     </widget>
+    <widget class="QLabel" name="text_status_keylogger">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>360</y>
+       <width>181</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::NoFrame</enum>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <zorder>text_status_keylogger</zorder>
     <zorder>keylog</zorder>
     <zorder>label_12</zorder>
     <zorder>label_11</zorder>
@@ -595,7 +654,7 @@
     <zorder>button_stop_keylogger</zorder>
     <zorder>button_save_keylog</zorder>
     <zorder>label_9</zorder>
-    <zorder>text_location_keylog</zorder>
+    <zorder>text_directory_keylog</zorder>
     <zorder>button_browser_keylog</zorder>
     <zorder>text_filename_keylog</zorder>
     <zorder>button_delete_keylog</zorder>
@@ -1283,12 +1342,13 @@
      <string>Logout and Shutdown</string>
     </property>
    </widget>
-   <zorder>widget_connection</zorder>
-   <zorder>widget_screen_stream</zorder>
    <zorder>widget_address</zorder>
    <zorder>widget_task_manager</zorder>
    <zorder>widget_control_input</zorder>
    <zorder>widget_logout_n_shutdown</zorder>
+   <zorder>widget_file_explorer</zorder>
+   <zorder>widget_connection</zorder>
+   <zorder>widget_screen_stream</zorder>
    <zorder>button_connection</zorder>
    <zorder>button_screen_stream</zorder>
    <zorder>button_address</zorder>
@@ -1296,7 +1356,6 @@
    <zorder>button_file_explorer</zorder>
    <zorder>button_control_input</zorder>
    <zorder>button_logout_n_shutdown</zorder>
-   <zorder>widget_file_explorer</zorder>
   </widget>
  </widget>
  <resources>
