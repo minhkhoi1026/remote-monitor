@@ -1,4 +1,6 @@
 import sys
+from PyQt5 import QtCore
+from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QApplication, QMainWindow, QFileDialog
 from ClientGui import Ui_MainWindow
 from datetime import datetime
@@ -20,6 +22,9 @@ class ClientWindow:
         self.main_win = QMainWindow()
         self.uic = Ui_MainWindow()
         self.uic.setupUi(self.main_win)
+        _translate = QtCore.QCoreApplication.translate
+        self.main_win.setWindowTitle(_translate("MainWindow", "Client"))
+        self.main_win.setWindowIcon(QIcon("image\\icon_window.png"))
         self.hide_widgets()
         self.connection()
         self.change_status_buttons(False)
@@ -143,6 +148,7 @@ class ClientWindow:
     def task_manager(self):
         self.hide_widgets()
         self.uic.widget_task_manager.show()
+        self.WidgetTaskManager.BtSee()
 
     #----- Code Area -----
     def file_explorer(self):
@@ -158,7 +164,7 @@ class ClientWindow:
         self.uic.button_start_keylogger.clicked.connect(self.start_keylogger)
         self.uic.button_stop_keylogger.clicked.connect(self.stop_keylogger)
         self.uic.button_save_keylog.clicked.connect(self.save_keylog)
-        self.uic.button_delete_keylog.clicked.connect(self.delete_keylog)
+        self.uic.button_clear_keylog.clicked.connect(self.clear_keylog)
         self.uic.button_browser_keylog.clicked.connect(self.browser_keylog)
         self.uic.text_filename_keylog.setText("keylog.txt")
         self.uic.button_unlock_input.hide()
@@ -185,7 +191,7 @@ class ClientWindow:
         self.socket.stop_keyhook()
         self.uic.button_start_keylogger.setEnabled(True)
         self.uic.button_stop_keylogger.setEnabled(False)
-    def delete_keylog(self):
+    def clear_keylog(self):
         self.uic.keylog.setText("")
     def save_keylog(self):
         directory = self.uic.text_directory_keylog.text().strip()

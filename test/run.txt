@@ -1,0 +1,7 @@
+command make python file:
+                        pyuic5 -x Client.ui -o ClientGui.py
+                        pyuic5 -x Server.ui -o ServerGui.py
+                        pyrcc5 picture.qrc -o picture_rc.py
+
+open Designer:
+                C:\Users\Dell\AppData\Roaming\Python\Python37\site-packages\qt5_applications\Qt\bin
