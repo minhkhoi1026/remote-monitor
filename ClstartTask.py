@@ -1,12 +1,12 @@
-from PyQt5 import QtCore, QtGui
+from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QWidget, QListView, QVBoxLayout, QLineEdit, QMessageBox, qApp
 import os
 import sys
 
-class AppView(QWidget):
+class startApp(QWidget):
 
     def __init__(self,socket, parent=None):
-        super(AppView, self).__init__(parent)
+        super(startApp, self).__init__(parent)
         self.resize(400, 400)
         self.socket=socket
         self.data=self.socket.request_list_app()
@@ -32,8 +32,8 @@ class AppView(QWidget):
             self.model.appendRow(item)
 
         self.listview.setModel(self.model)
-
         self.listview.show()
+
     def searchItem(self):
         search_string = self.searchEditText.text() 
         items = self.model.findItems(search_string, QtCore.Qt.MatchStartsWith)
@@ -47,9 +47,9 @@ class AppView(QWidget):
             self.listview.selectionModel().setCurrentIndex(ix,QtCore.QItemSelectionModel.SelectCurrent)
         else:
             msg = QMessageBox()
-            msg.setWindowTitle("Tutorial on PyQt5")
+            msg.setWindowTitle("Notification")
             msg.setIcon(QMessageBox.Critical)
-            msg.setText("This is the main text!")
+            msg.setText("App name not found")
             x = msg.exec_()
 
     def confirm(self):
@@ -57,3 +57,33 @@ class AppView(QWidget):
         id=next((sub for sub in self.data if sub['Name'] == name), None)['AppID']
         self.socket.start_app(id)
         self.close()
+
+class startProcess(QWidget):
+
+    def __init__(self,socket, parent=None):
+        super(startProcess, self).__init__(parent)
+        self.socket=socket
+        self.Show()
+
+
+        
+
+    def Show(self):
+        self.resize(326, 123)
+        self.setWindowTitle("ListProcess")
+        self.lineEdit = QtWidgets.QLineEdit(self)
+        self.lineEdit.setGeometry(QtCore.QRect(20, 40, 281, 22))
+        self.lineEdit.returnPressed.connect(self.startPS)
+        self.buttonOK = QtWidgets.QPushButton(self)
+        self.buttonOK.setGeometry(QtCore.QRect(210, 80, 91, 28))
+        self.buttonOK.setText('OK')
+        self.buttonOK.clicked.connect(self.startPS)
+        self.label = QtWidgets.QLabel(self)
+        self.label.setGeometry(QtCore.QRect(20, 10, 121, 16))
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        self.label.setFont(font)
+        self.label.setText('Name process')
+
+    def startPS(self):
+        self.socket.start_process(self.lineEdit.text())
