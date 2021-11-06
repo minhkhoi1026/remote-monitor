@@ -113,9 +113,9 @@
     <widget class="QPushButton" name="button_screenshot">
      <property name="geometry">
       <rect>
-       <x>50</x>
+       <x>40</x>
        <y>450</y>
-       <width>101</width>
+       <width>121</width>
        <height>31</height>
       </rect>
      </property>
@@ -128,7 +128,13 @@
       </font>
      </property>
      <property name="text">
-      <string>Screenshot</string>
+      <string> Screenshot</string>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>20</width>
+       <height>20</height>
+      </size>
      </property>
     </widget>
     <widget class="QLabel" name="label_14">
@@ -152,9 +158,9 @@
     <widget class="QPushButton" name="button_browser_screen">
      <property name="geometry">
       <rect>
-       <x>50</x>
+       <x>40</x>
        <y>490</y>
-       <width>101</width>
+       <width>121</width>
        <height>31</height>
       </rect>
      </property>
@@ -167,7 +173,13 @@
       </font>
      </property>
      <property name="text">
-      <string>Browser</string>
+      <string>   Browser  </string>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>20</width>
+       <height>20</height>
+      </size>
      </property>
     </widget>
     <widget class="QLineEdit" name="text_filename_screen">
@@ -348,7 +360,7 @@
       <rect>
        <x>50</x>
        <y>60</y>
-       <width>111</width>
+       <width>141</width>
        <height>71</height>
       </rect>
      </property>
@@ -361,7 +373,13 @@
       </font>
      </property>
      <property name="text">
-      <string>Lock Input</string>
+      <string>  Lock Input  </string>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>25</width>
+       <height>25</height>
+      </size>
      </property>
     </widget>
     <widget class="QPushButton" name="button_start_keylogger">
@@ -369,7 +387,7 @@
       <rect>
        <x>50</x>
        <y>140</y>
-       <width>111</width>
+       <width>141</width>
        <height>31</height>
       </rect>
      </property>
@@ -382,7 +400,13 @@
       </font>
      </property>
      <property name="text">
-      <string>Start keylogger</string>
+      <string> Start keylogger</string>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>20</width>
+       <height>20</height>
+      </size>
      </property>
     </widget>
     <widget class="QPushButton" name="button_stop_keylogger">
@@ -390,7 +414,7 @@
       <rect>
        <x>50</x>
        <y>180</y>
-       <width>111</width>
+       <width>141</width>
        <height>31</height>
       </rect>
      </property>
@@ -403,7 +427,13 @@
       </font>
      </property>
      <property name="text">
-      <string>Stop keylogger</string>
+      <string> Stop keylogger</string>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>20</width>
+       <height>20</height>
+      </size>
      </property>
     </widget>
     <widget class="QPushButton" name="button_save_keylog">
@@ -411,7 +441,7 @@
       <rect>
        <x>50</x>
        <y>440</y>
-       <width>111</width>
+       <width>141</width>
        <height>31</height>
       </rect>
      </property>
@@ -424,13 +454,19 @@
       </font>
      </property>
      <property name="text">
-      <string>Save</string>
+      <string>    Save       </string>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>20</width>
+       <height>20</height>
+      </size>
      </property>
     </widget>
     <widget class="QLabel" name="label_9">
      <property name="geometry">
       <rect>
-       <x>200</x>
+       <x>230</x>
        <y>50</y>
        <width>51</width>
        <height>16</height>
@@ -456,7 +492,7 @@
       <rect>
        <x>50</x>
        <y>60</y>
-       <width>111</width>
+       <width>141</width>
        <height>71</height>
       </rect>
      </property>
@@ -469,7 +505,13 @@
       </font>
      </property>
      <property name="text">
-      <string>Unlock Input</string>
+      <string> Unlock Input</string>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>25</width>
+       <height>25</height>
+      </size>
      </property>
     </widget>
     <widget class="QLineEdit" name="text_directory_keylog">
@@ -498,7 +540,7 @@
       <rect>
        <x>50</x>
        <y>480</y>
-       <width>111</width>
+       <width>141</width>
        <height>31</height>
       </rect>
      </property>
@@ -511,7 +553,13 @@
       </font>
      </property>
      <property name="text">
-      <string>Browser</string>
+      <string>   Browser    </string>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>20</width>
+       <height>20</height>
+      </size>
      </property>
     </widget>
     <widget class="QLabel" name="label_11">
@@ -576,7 +624,7 @@
       <rect>
        <x>50</x>
        <y>400</y>
-       <width>111</width>
+       <width>141</width>
        <height>31</height>
       </rect>
      </property>
@@ -589,15 +637,21 @@
       </font>
      </property>
      <property name="text">
-      <string>Clear</string>
+      <string>    Clear      </string>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>20</width>
+       <height>20</height>
+      </size>
      </property>
     </widget>
     <widget class="QLabel" name="keylog">
      <property name="geometry">
       <rect>
-       <x>190</x>
+       <x>220</x>
        <y>60</y>
-       <width>851</width>
+       <width>821</width>
        <height>451</height>
       </rect>
      </property>
@@ -622,9 +676,9 @@
     <widget class="QLabel" name="text_status_keylogger">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>30</x>
        <y>360</y>
-       <width>181</width>
+       <width>191</width>
        <height>31</height>
       </rect>
      </property>
@@ -831,7 +885,7 @@
       </font>
      </property>
      <property name="text">
-      <string>Connect</string>
+      <string>     Connect        </string>
      </property>
     </widget>
     <widget class="QLabel" name="label_8">
@@ -923,7 +977,7 @@
       <string/>
      </property>
      <property name="text">
-      <string>Disconnect</string>
+      <string>  Disconnect       </string>
      </property>
      <property name="shortcut">
       <string/>
@@ -1000,7 +1054,7 @@
      <property name="geometry">
       <rect>
        <x>120</x>
-       <y>40</y>
+       <y>50</y>
        <width>851</width>
        <height>51</height>
       </rect>
@@ -1008,6 +1062,11 @@
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
        <widget class="QPushButton" name="buttonSee">
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
         <property name="text">
          <string>Refresh</string>
         </property>
@@ -1015,6 +1074,11 @@
       </item>
       <item>
        <widget class="QPushButton" name="buttonDelete">
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
         <property name="text">
          <string>Clear</string>
         </property>
@@ -1022,6 +1086,11 @@
       </item>
       <item>
        <widget class="QPushButton" name="buttonStartProcess">
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
         <property name="text">
          <string>Start process</string>
         </property>
@@ -1029,6 +1098,11 @@
       </item>
       <item>
        <widget class="QPushButton" name="buttonStartApp">
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
         <property name="text">
          <string>Start App</string>
         </property>
@@ -1036,12 +1110,33 @@
       </item>
       <item>
        <widget class="QRadioButton" name="buttonApp">
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
         <property name="text">
          <string>App</string>
         </property>
        </widget>
       </item>
      </layout>
+    </widget>
+    <widget class="QLabel" name="icon_app_proc">
+     <property name="geometry">
+      <rect>
+       <x>906</x>
+       <y>51</y>
+       <width>49</width>
+       <height>49</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border-image: url(:/image/image/icon_process.png);</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
     </widget>
    </widget>
    <widget class="QWidget" name="widget_file_explorer" native="true">
@@ -1173,13 +1268,16 @@
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>30</y>
-        <width>71</width>
-        <height>28</height>
+        <y>17</y>
+        <width>41</width>
+        <height>41</height>
        </rect>
       </property>
+      <property name="styleSheet">
+       <string notr="true">image: url(:/image/image/icon_back.png);</string>
+      </property>
       <property name="text">
-       <string>Back</string>
+       <string/>
       </property>
      </widget>
      <widget class="QLabel" name="label_13">
@@ -1396,13 +1494,13 @@
      </size>
     </property>
    </widget>
+   <zorder>widget_control_input</zorder>
    <zorder>widget_power</zorder>
    <zorder>widget_file_explorer</zorder>
    <zorder>widget_connection</zorder>
    <zorder>widget_screen_stream</zorder>
    <zorder>widget_address</zorder>
    <zorder>widget_task_manager</zorder>
-   <zorder>widget_control_input</zorder>
    <zorder>button_connection</zorder>
    <zorder>button_screen_stream</zorder>
    <zorder>button_address</zorder>

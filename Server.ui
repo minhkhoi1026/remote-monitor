@@ -29,7 +29,13 @@
      </font>
     </property>
     <property name="text">
-     <string>Start</string>
+     <string>  Open     </string>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>30</width>
+      <height>30</height>
+     </size>
     </property>
    </widget>
    <widget class="QPushButton" name="button_stop">
@@ -47,7 +53,13 @@
      </font>
     </property>
     <property name="text">
-     <string>Stop</string>
+     <string>  Close     </string>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>30</width>
+      <height>30</height>
+     </size>
     </property>
    </widget>
    <widget class="QComboBox" name="comboBox_IP">

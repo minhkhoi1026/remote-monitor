@@ -18,7 +18,9 @@ class ServerWindow:
         self.socket = SocketServer()
         self.stream_socket = StreamingServer()
         self.uic.button_start.clicked.connect(self.start)
+        self.uic.button_start.setIcon(QIcon("image\\icon_on"))
         self.uic.button_stop.clicked.connect(self.stop)
+        self.uic.button_stop.setIcon(QIcon("image\\icon_off"))
         self.uic.button_stop.hide()
         self.add_item_IP()
 
