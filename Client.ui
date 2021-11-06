@@ -456,7 +456,7 @@
       <rect>
        <x>50</x>
        <y>60</y>
-       <width>101</width>
+       <width>111</width>
        <height>71</height>
       </rect>
      </property>
@@ -643,12 +643,12 @@
       <set>Qt::AlignCenter</set>
      </property>
     </widget>
+    <zorder>button_unlock_input</zorder>
+    <zorder>button_lock_input</zorder>
     <zorder>text_status_keylogger</zorder>
     <zorder>keylog</zorder>
     <zorder>label_12</zorder>
     <zorder>label_11</zorder>
-    <zorder>button_unlock_input</zorder>
-    <zorder>button_lock_input</zorder>
     <zorder>label_3</zorder>
     <zorder>button_start_keylogger</zorder>
     <zorder>button_stop_keylogger</zorder>
@@ -1396,13 +1396,13 @@
      </size>
     </property>
    </widget>
+   <zorder>widget_power</zorder>
    <zorder>widget_file_explorer</zorder>
    <zorder>widget_connection</zorder>
    <zorder>widget_screen_stream</zorder>
    <zorder>widget_address</zorder>
    <zorder>widget_task_manager</zorder>
    <zorder>widget_control_input</zorder>
-   <zorder>widget_power</zorder>
    <zorder>button_connection</zorder>
    <zorder>button_screen_stream</zorder>
    <zorder>button_address</zorder>
