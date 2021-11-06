@@ -21,7 +21,7 @@ def get_all_avail_host():
             pass
     return hosts
 
-BUF_SIZE = 256
+BUF_SIZE = 4096
 class SocketServer:
     def __init__(self):
         """

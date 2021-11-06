@@ -5,7 +5,6 @@ from PyQt5.QtWidgets import QApplication, QMainWindow
 from ServerGui import Ui_MainWindow
 from server_socket import SocketServer, get_all_avail_host
 from streaming import StreamingServer
-import admin
 
 class ServerWindow:
     def __init__(self):

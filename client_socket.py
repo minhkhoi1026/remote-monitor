@@ -8,7 +8,7 @@ from utils import stoppabe_thread
 from file_management import *
 from client import addText
 
-BUF_SIZE = 256
+BUF_SIZE = 4096
 class SocketClient:
     def __init__(self):
         """
