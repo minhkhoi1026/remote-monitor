@@ -29,7 +29,7 @@ from PyQt5.QtGui import QImage, QPixmap, QPalette, QPainter
 from ServerGui import Ui_MainWindow
 from server_socket import SocketServer
 from streaming import StreamingServer
-
+import admin
 
 class ServerWindow:
     def __init__(self, socket):
@@ -59,6 +59,8 @@ class ServerWindow:
 
 
 if __name__ == "__main__":
+    if not admin.isUserAdmin():
+        admin.runAsAdmin()
     app = QApplication(sys.argv)
     main_win = ServerWindow(None)
     main_win.show()
