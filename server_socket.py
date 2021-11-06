@@ -9,6 +9,11 @@ from file_management import *
 from shutdown_logout import *
 from task_manager import *
 import threading
+from enum import Enum
+
+class extra_opcode(Enum):
+    PASTEFILE = 1
+    COPYFILE = 2
 
 def get_all_avail_host():
     nics = get_all_mac()
@@ -89,6 +94,7 @@ class SocketServer:
                 
                 print(request)
                 data = b""
+                extra_action = -1
                 if request[0] == "request_mac":
                     data = self.__request_mac_handler()
                 elif request[0] == "logout":
@@ -102,11 +108,16 @@ class SocketServer:
                 elif request[0] == "control_input":
                     self.__control_input_handler(request[1])
                 elif request[0] == "file_management":
-                    data = self.__file_management_handler(request[1])
+                    data, extra_action = self.__file_management_handler(request[1])
                 elif request[0] == "process_management":
                     data = self.__process_management_handler(request[1])
                 # encode data and send through socket
                 connection.send(data)
+                
+                if extra_action == extra_opcode.PASTEFILE:
+                    connection.recv_file(request[1]['path'])
+                elif extra_action == extra_opcode.COPYFILE:
+                    connection.send_file(request[1]['path'])
             except ConnectionResetError:
                 self.__used_slot = False
             except ConnectionAbortedError:
@@ -132,16 +143,18 @@ class SocketServer:
                 
     def __file_management_handler(self, data):
         opcode = data["opcode"]
+        extra_action = -1
+        return_data = b''
         if opcode == file_opcode.LISTDIR:
             root_path = data["path"]
-            return {"pwd": get_parent_dir(root_path), "content": get_list_dir(root_path)}
+            return_data = {"pwd": get_parent_dir(root_path), "content": get_list_dir(root_path)}
         elif opcode == file_opcode.PASTEFILE:
-            save_file(data["file_content"], data["path"])
+            extra_action = extra_opcode.PASTEFILE
         elif opcode == file_opcode.COPYFILE:
-            return get_file(data["path"])
+            extra_action = extra_opcode.COPYFILE
         elif opcode == file_opcode.DELFILE:
             delete_file(data["path"])
-        return b""
+        return (return_data, extra_action)
                 
     def __control_input_handler(self, data):
         """
@@ -206,7 +219,7 @@ class SocketServer:
 
 if __name__ == "__main__":
     print(get_all_avail_host())
-    server = SocketServer('127.0.0.1', 26100)
-    server.start_server()
-    time.sleep(50)
+    server = SocketServer()
+    server.start_server('127.0.0.1', 26100)
+    time.sleep(100)
     server.stop_server()

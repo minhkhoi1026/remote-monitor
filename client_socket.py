@@ -7,7 +7,7 @@ import pickle
 from task_manager import process_opcode
 from utils import stoppabe_thread
 from file_management import *
-from client import addText
+from client import addText 
 
 BUF_SIZE = 32768
 class SocketClient:
@@ -34,7 +34,7 @@ class SocketClient:
 
     def __request(self, event, data = None):
         """
-        Handles the individual server connections and processes their stream data.
+        Handles the individual server connections and processes their data.
         """
         try:
             # send request to server
@@ -49,7 +49,7 @@ class SocketClient:
         except BrokenPipeError:
             return self.__clean()
         except OSError:
-            return self.__clean
+            return self.__clean()
     
     def __keyhook_loop(self, widget):
         while not threading.current_thread().is_stopped():
@@ -111,20 +111,15 @@ class SocketClient:
                               {"opcode": file_opcode.LISTDIR, "path": root_path})
     
     def send_file(self, client_path, server_path):
-        with open(client_path, "rb") as f:
-            file_content = f.read()
-        return self.__request("file_management", 
+        self.__request("file_management", 
                             {"opcode": file_opcode.PASTEFILE, 
-                            "file_content": file_content, 
                             "path": server_path})
+        self.__client_socket.send_file(client_path)
         
     def get_file(self, client_path, server_path):
-        data = self.__request("file_management", 
-                            {"opcode": file_opcode.COPYFILE, "path": server_path})
-        if (data is None): return None
-        with open(client_path, "wb") as f:
-            f.write(data)
-        return b""
+        self.__request("file_management", 
+                        {"opcode": file_opcode.COPYFILE, "path": server_path})
+        self.__client_socket.recv_file(client_path)
         
     def del_file(self, path):
         return self.__request("file_management", 
@@ -183,6 +178,7 @@ if __name__ == "__main__":
     #     print(app)
     # client.start_app(apps[0]["AppID"])
     client.get_file('E:\\abc.txt', 'C:\\Garena\\hehe.txt')
+    client.send_file('E:\\repo\\remote-monitor\\README.md', 'E:\\send_file.txt')
     # files = client.request_listdir("E:\\")
     # for file in files["content"]:
     #     print(file["Filename"], file["Filetype"], file["Filesize"], file["Last modified"])
