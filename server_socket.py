@@ -21,7 +21,7 @@ def get_all_avail_host():
             pass
     return hosts
 
-BUF_SIZE = 4096
+BUF_SIZE = 32768
 class SocketServer:
     def __init__(self):
         """
@@ -126,6 +126,7 @@ class SocketServer:
                 self.__used_slot = False
             except BrokenPipeError:
                 self.__used_slot = False
+        self.__used_slot = False
                 
     def __process_management_handler(self, data):
         opcode = data["opcode"]

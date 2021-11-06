@@ -141,6 +141,7 @@ class StreamingServer:
                 self.__used_slot = False
             except BrokenPipeError:
                 self.__used_slot = False
+        self.__used_slot = False
                 
     def start_server(self, host, port):
         """
