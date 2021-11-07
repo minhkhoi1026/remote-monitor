@@ -52,7 +52,7 @@ class ClFileManagement:
         cursor = QtGui.QCursor()
         menu.exec_(cursor.pos())
     def open_folderClient(self):
-        if self.ui.FileClient.selectedIndexes()[2].data()=='File Folder':
+        if self.ui.FileClient.selectedIndexes()[2].data()=='File Folder' or self.ui.FileClient.selectedIndexes()[2].data()=='Drive':
             index = self.ui.FileClient.currentIndex()
             self.pathClient = self.FClientModel.filePath(index)
             self.populate()
@@ -85,6 +85,8 @@ class ClFileManagement:
             file_path+=row[0].data()
             self.SvCopied=[file_path,row[0].data()]
     def Action_SvPaste(self):
+        if self.ClCopied==None:
+            return
         dicts=self.socket.request_listdir(self.pathServer)['content']
         exist = next((item for item in dicts if item["Filename"] == self.ClCopied[1]), None) != None
         if exist:
@@ -102,7 +104,7 @@ class ClFileManagement:
             file_path = self.FClientModel.filePath(index)
             self.ClCopied=[file_path.replace('/','\\'),index.data()]
     def Action_ClPaste(self):
-        if not self.pathClient:
+        if not self.pathClient or not self.SvCopied:
             return 
         exist= os.path.exists(self.pathClient.replace('/','\\')+'\\'+self.SvCopied[1])
         if exist:
