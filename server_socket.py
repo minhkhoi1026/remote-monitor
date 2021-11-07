@@ -28,6 +28,7 @@ def get_all_avail_host():
     return hosts
 
 BUF_SIZE = 32768
+FILE_PORT = 26101
 class SocketServer:
     def __init__(self):
         """
@@ -115,9 +116,9 @@ class SocketServer:
                 connection.send(data)
                 
                 if extra_action == extra_opcode.PASTEFILE:
-                    connection.recv_file(request[1]['path'])
+                    recv_file(self.__host, FILE_PORT, request[1]['path'])
                 elif extra_action == extra_opcode.COPYFILE:
-                    connection.send_file(request[1]['path'])
+                    send_file(self.__host, FILE_PORT, request[1]['path'])
             except ConnectionResetError:
                 self.__used_slot = False
             except ConnectionAbortedError:

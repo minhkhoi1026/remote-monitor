@@ -11,6 +11,8 @@ import time
 import string
 from ctypes import windll
 from win32com.shell import shell, shellcon
+import socket
+import struct
 
 def get_document_path():
     return shell.SHGetFolderPath(0, shellcon.CSIDL_PERSONAL, None, 0)
@@ -129,3 +131,38 @@ def save_file(file_content, path):
 def delete_file(path):
     if os.path.exists(path):
         os.remove(path)
+        
+def recv_file(host, port, path, buf_size = 65536):
+    sock = socket.socket()
+    sock.bind((host, port))
+    sock.listen(1)
+    with sock:
+        client,addr = sock.accept()
+
+        # Use a socket.makefile() object to treat the socket as a file.
+        # Then, readline() can be used to read the newline-terminated metadata.
+        with client, client.makefile('rb') as clientfile:
+            length = int(clientfile.readline())
+
+            # Read the data in chunks so it can handle large files.
+            with open(path,'wb') as f:
+                while length:
+                    chunk = min(length, buf_size)
+                    data = clientfile.read(chunk)
+                    if not data: break # socket closed
+                    f.write(data)
+                    length -= len(data)
+                
+def send_file(host, port, path, buf_size = 65536):
+    if host == '0.0.0.0':
+        host = '127.0.0.1'
+    sock = socket.socket()
+    sock.connect((host ,port))
+    with sock,open(path,'rb') as f:
+        sock.sendall(f'{os.path.getsize(path)}'.encode() + b'\n')
+
+        # Send the file in chunks so large files can be handled.
+        while True:
+            data = f.read(buf_size)
+            if not data: break
+            sock.sendall(data)

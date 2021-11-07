@@ -2,14 +2,13 @@ import my_socket
 import socket
 import time
 import threading
-import struct
-import pickle
 from task_manager import process_opcode
 from utils import stoppabe_thread
 from file_management import *
 from client import addText 
 
 BUF_SIZE = 32768
+FILE_PORT = 26101
 class SocketClient:
     def __init__(self):
         """
@@ -75,6 +74,8 @@ class SocketClient:
             self.__client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             self.__client_socket.connect((host, port))
             self.__client_socket = my_socket.socket_adapter(self.__client_socket)
+            self.__host = host
+            self.__port = port
             self.running = True
             return True
         except ConnectionRefusedError:
@@ -114,12 +115,14 @@ class SocketClient:
         self.__request("file_management", 
                             {"opcode": file_opcode.PASTEFILE, 
                             "path": server_path})
-        self.__client_socket.send_file(client_path)
+        send_file(self.__host, FILE_PORT, client_path)
         
     def get_file(self, client_path, server_path):
+        t = threading.Thread(target = recv_file, 
+                             args = [self.__host, FILE_PORT, client_path], daemon = True)
+        t.start()
         self.__request("file_management", 
                         {"opcode": file_opcode.COPYFILE, "path": server_path})
-        self.__client_socket.recv_file(client_path)
         
     def del_file(self, path):
         return self.__request("file_management", 
