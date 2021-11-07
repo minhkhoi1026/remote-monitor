@@ -93,7 +93,7 @@ class SocketServer:
                     self.__used_slot = False
                     break
                 
-                print(request)
+                print(request[0])
                 data = b""
                 extra_action = -1
                 if request[0] == "request_mac":
@@ -205,16 +205,17 @@ class SocketServer:
         Stops the server and closes all connections
         """
         if self.__running:
+            self.__running = False
+            self.__used_slot = False
             closing_connection = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             if self.__host == '0.0.0.0':
                 self.__host = '127.0.0.1'
             closing_connection.connect((self.__host, self.__port))
             closing_connection.close()
             self.__block.acquire()
+            
             self.__server_socket.close()
             self.__block.release()
-            self.__running = False
-            self.__used_slot = False
         else:
             print("Server not running!")
 

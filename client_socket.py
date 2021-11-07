@@ -123,6 +123,7 @@ class SocketClient:
         t.start()
         self.__request("file_management", 
                         {"opcode": file_opcode.COPYFILE, "path": server_path})
+        t.join()
         
     def del_file(self, path):
         return self.__request("file_management", 
