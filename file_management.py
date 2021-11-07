@@ -153,11 +153,18 @@ def recv_file(host, port, path, buf_size = 65536):
                     f.write(data)
                     length -= len(data)
                 
-def send_file(host, port, path, buf_size = 65536):
-    if host == '0.0.0.0':
-        host = '127.0.0.1'
-    sock = socket.socket()
-    sock.connect((host ,port))
+def send_file(hosts, port, path, buf_size = 65536):
+    sock = None
+    for host in hosts:
+        if host == '0.0.0.0': continue
+        try:
+            sock = socket.socket()
+            sock.connect((host ,port))
+        except:
+            sock = None
+        if sock is not None: break
+    if sock is None: return
+    
     with sock,open(path,'rb') as f:
         sock.sendall(f'{os.path.getsize(path)}'.encode() + b'\n')
 

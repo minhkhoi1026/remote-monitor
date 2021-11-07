@@ -6,6 +6,7 @@ from task_manager import process_opcode
 from utils import stoppabe_thread
 from file_management import *
 from client import addText 
+from server_socket import get_all_avail_host
 
 BUF_SIZE = 32768
 FILE_PORT = 26101
@@ -115,15 +116,19 @@ class SocketClient:
         self.__request("file_management", 
                             {"opcode": file_opcode.PASTEFILE, 
                             "path": server_path})
-        send_file(self.__host, FILE_PORT, client_path)
+        t = threading.Thread(target = send_file,
+                              args=[[self.__host], FILE_PORT, client_path], daemon=True)
+        t.start()
         
     def get_file(self, client_path, server_path):
         t = threading.Thread(target = recv_file, 
-                             args = [self.__host, FILE_PORT, client_path], daemon = True)
+                             args = ['0.0.0.0', FILE_PORT, client_path], daemon = True)
         t.start()
+        hosts = get_all_avail_host()
         self.__request("file_management", 
-                        {"opcode": file_opcode.COPYFILE, "path": server_path})
-        t.join()
+                        {"opcode": file_opcode.COPYFILE, 
+                         "path": server_path, 
+                         "hosts": hosts})
         
     def del_file(self, path):
         return self.__request("file_management", 

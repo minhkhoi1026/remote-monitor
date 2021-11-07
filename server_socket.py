@@ -116,9 +116,14 @@ class SocketServer:
                 connection.send(data)
                 
                 if extra_action == extra_opcode.PASTEFILE:
-                    recv_file(self.__host, FILE_PORT, request[1]['path'])
+                    t = threading.Thread(target=recv_file,
+                                         args=[self.__host, FILE_PORT, request[1]['path']], daemon=True)
+                    t.start()
                 elif extra_action == extra_opcode.COPYFILE:
-                    send_file(self.__host, FILE_PORT, request[1]['path'])
+                    hosts = request[1]['hosts']
+                    t = threading.Thread(target=send_file,
+                                          args=[hosts, FILE_PORT, request[1]['path']], daemon=True)
+                    t.start()
             except ConnectionResetError:
                 self.__used_slot = False
             except ConnectionAbortedError:
